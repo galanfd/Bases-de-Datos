@@ -1,0 +1,545 @@
+id_permiso,descripcion_actividad
+2,se debe cargar petroleo
+3,se debe descargar petroleo
+5,se debe descargar petroleo
+7,se debe descargar petroleo
+9,descarga de cointainers
+10,descaraga de pescados
+14,descarga de cointainers
+16,carga de cointainers
+20,se debe cargar petroleo
+24,carga de cointainers
+27,descaraga de pescados
+28,descaraga de pescados
+30,descarga de cointainers
+34,se debe cargar petroleo
+35,se debe cargar petroleo
+36,descaraga de pescados
+37,descarga de cointainers
+40,carga de cointainers
+41,se debe cargar petroleo
+42,se debe descargar petroleo
+43,se debe cargar petroleo
+45,se debe descargar petroleo
+46,se debe cargar petroleo
+47,se debe descargar petroleo
+48,carga de cointainers
+49,carga de cointainers
+50,descaraga de pescados
+51,descarga de cointainers
+55,descarga de cointainers
+56,descaraga de pescados
+57,descarga de cointainers
+58,descaraga de pescados
+59,descarga de cointainers
+60,descaraga de pescados
+61,descaraga de pescados
+64,descaraga de pescados
+65,descaraga de pescados
+66,carga de cointainers
+69,se debe cargar petroleo
+70,descarga de cointainers
+71,se debe descargar petroleo
+73,se debe cargar petroleo
+74,se debe cargar petroleo
+75,se debe cargar petroleo
+78,descaraga de pescados
+82,descaraga de pescados
+83,carga de cointainers
+85,se debe descargar petroleo
+86,descarga de cointainers
+88,carga de cointainers
+89,carga de cointainers
+90,carga de cointainers
+91,descaraga de pescados
+92,descarga de cointainers
+95,descarga de cointainers
+98,se debe descargar petroleo
+99,descarga de cointainers
+101,descaraga de pescados
+102,descaraga de pescados
+103,se debe descargar petroleo
+104,carga de cointainers
+106,descaraga de pescados
+108,descaraga de pescados
+109,descarga de cointainers
+110,se debe cargar petroleo
+111,se debe cargar petroleo
+112,se debe descargar petroleo
+113,descaraga de pescados
+115,se debe cargar petroleo
+116,descaraga de pescados
+117,descaraga de pescados
+119,descarga de cointainers
+120,se debe descargar petroleo
+122,descaraga de pescados
+123,se debe cargar petroleo
+124,carga de cointainers
+126,se debe descargar petroleo
+129,descaraga de pescados
+130,descaraga de pescados
+132,descaraga de pescados
+133,carga de cointainers
+134,descarga de cointainers
+135,descaraga de pescados
+137,se debe cargar petroleo
+141,descaraga de pescados
+142,se debe descargar petroleo
+143,descarga de cointainers
+146,descarga de cointainers
+147,descaraga de pescados
+151,se debe cargar petroleo
+153,descarga de cointainers
+154,descarga de cointainers
+155,se debe descargar petroleo
+156,descaraga de pescados
+157,descaraga de pescados
+158,descaraga de pescados
+159,descaraga de pescados
+160,se debe cargar petroleo
+161,se debe descargar petroleo
+162,descaraga de pescados
+164,se debe descargar petroleo
+166,descaraga de pescados
+167,descaraga de pescados
+168,se debe cargar petroleo
+170,se debe descargar petroleo
+171,se debe descargar petroleo
+172,descaraga de pescados
+176,descaraga de pescados
+177,descaraga de pescados
+178,se debe descargar petroleo
+179,carga de cointainers
+180,se debe cargar petroleo
+182,se debe cargar petroleo
+183,se debe descargar petroleo
+184,carga de cointainers
+185,se debe descargar petroleo
+187,se debe descargar petroleo
+188,se debe descargar petroleo
+190,carga de cointainers
+192,descaraga de pescados
+193,descaraga de pescados
+196,descarga de cointainers
+197,descaraga de pescados
+199,descaraga de pescados
+201,carga de cointainers
+202,se debe descargar petroleo
+204,carga de cointainers
+206,se debe cargar petroleo
+207,se debe cargar petroleo
+209,se debe cargar petroleo
+210,descaraga de pescados
+211,se debe cargar petroleo
+213,se debe descargar petroleo
+214,carga de cointainers
+216,descaraga de pescados
+217,se debe cargar petroleo
+218,se debe descargar petroleo
+219,se debe cargar petroleo
+220,se debe cargar petroleo
+221,descaraga de pescados
+222,descaraga de pescados
+223,descarga de cointainers
+226,descaraga de pescados
+228,se debe cargar petroleo
+229,carga de cointainers
+231,descarga de cointainers
+232,carga de cointainers
+234,se debe cargar petroleo
+236,carga de cointainers
+237,carga de cointainers
+238,descaraga de pescados
+239,carga de cointainers
+242,descarga de cointainers
+243,se debe cargar petroleo
+244,carga de cointainers
+246,descaraga de pescados
+247,descaraga de pescados
+248,se debe descargar petroleo
+250,se debe cargar petroleo
+251,se debe cargar petroleo
+253,descarga de cointainers
+256,descaraga de pescados
+258,se debe cargar petroleo
+259,carga de cointainers
+260,descaraga de pescados
+261,se debe descargar petroleo
+262,carga de cointainers
+265,descaraga de pescados
+266,descaraga de pescados
+271,se debe cargar petroleo
+272,descaraga de pescados
+273,carga de cointainers
+274,descaraga de pescados
+279,descaraga de pescados
+280,se debe descargar petroleo
+284,se debe descargar petroleo
+286,se debe descargar petroleo
+287,se debe descargar petroleo
+288,descarga de cointainers
+289,se debe cargar petroleo
+291,se debe descargar petroleo
+295,se debe cargar petroleo
+296,se debe cargar petroleo
+297,descarga de cointainers
+298,descaraga de pescados
+299,carga de cointainers
+300,descaraga de pescados
+301,descarga de cointainers
+305,carga de cointainers
+306,descarga de cointainers
+312,descaraga de pescados
+313,descaraga de pescados
+314,se debe descargar petroleo
+315,descaraga de pescados
+319,descarga de cointainers
+321,se debe cargar petroleo
+323,descaraga de pescados
+324,se debe descargar petroleo
+327,carga de cointainers
+328,se debe descargar petroleo
+330,descarga de cointainers
+335,descaraga de pescados
+337,descaraga de pescados
+339,se debe cargar petroleo
+341,descaraga de pescados
+342,descaraga de pescados
+343,descarga de cointainers
+345,se debe descargar petroleo
+346,descaraga de pescados
+347,se debe cargar petroleo
+348,descarga de cointainers
+349,carga de cointainers
+351,se debe cargar petroleo
+354,se debe descargar petroleo
+357,se debe descargar petroleo
+360,descaraga de pescados
+361,descaraga de pescados
+364,descaraga de pescados
+365,descarga de cointainers
+368,descaraga de pescados
+369,descaraga de pescados
+370,carga de cointainers
+371,carga de cointainers
+373,descaraga de pescados
+374,descaraga de pescados
+375,se debe descargar petroleo
+376,se debe cargar petroleo
+377,se debe descargar petroleo
+378,descarga de cointainers
+381,carga de cointainers
+382,descaraga de pescados
+386,descarga de cointainers
+387,se debe descargar petroleo
+390,se debe descargar petroleo
+391,descaraga de pescados
+392,descaraga de pescados
+393,se debe cargar petroleo
+394,descaraga de pescados
+396,se debe cargar petroleo
+398,descaraga de pescados
+399,descarga de cointainers
+400,descaraga de pescados
+404,descarga de cointainers
+406,descaraga de pescados
+407,descaraga de pescados
+410,se debe cargar petroleo
+412,se debe cargar petroleo
+414,descaraga de pescados
+419,se debe descargar petroleo
+420,se debe descargar petroleo
+421,descarga de cointainers
+422,descaraga de pescados
+423,carga de cointainers
+425,se debe descargar petroleo
+426,se debe descargar petroleo
+427,descaraga de pescados
+431,se debe descargar petroleo
+432,descaraga de pescados
+438,se debe descargar petroleo
+439,se debe cargar petroleo
+441,descarga de cointainers
+442,carga de cointainers
+443,descaraga de pescados
+444,carga de cointainers
+446,se debe descargar petroleo
+447,se debe cargar petroleo
+449,descaraga de pescados
+450,se debe cargar petroleo
+451,descaraga de pescados
+452,descaraga de pescados
+453,descaraga de pescados
+454,descaraga de pescados
+456,se debe descargar petroleo
+457,se debe descargar petroleo
+458,se debe cargar petroleo
+460,descaraga de pescados
+461,descaraga de pescados
+462,descaraga de pescados
+463,se debe cargar petroleo
+467,descaraga de pescados
+468,se debe descargar petroleo
+470,descaraga de pescados
+471,se debe descargar petroleo
+472,descaraga de pescados
+474,descarga de cointainers
+476,carga de cointainers
+477,se debe descargar petroleo
+479,se debe descargar petroleo
+483,descaraga de pescados
+484,descaraga de pescados
+486,descarga de cointainers
+487,descaraga de pescados
+488,descaraga de pescados
+489,descaraga de pescados
+491,descaraga de pescados
+494,carga de cointainers
+495,carga de cointainers
+496,descaraga de pescados
+498,descarga de cointainers
+499,descaraga de pescados
+500,descaraga de pescados
+501,se debe descargar petroleo
+503,se debe descargar petroleo
+505,descaraga de pescados
+508,descaraga de pescados
+509,carga de cointainers
+511,descaraga de pescados
+512,carga de cointainers
+514,se debe cargar petroleo
+516,se debe cargar petroleo
+517,descarga de cointainers
+518,descarga de cointainers
+519,descarga de cointainers
+521,carga de cointainers
+523,se debe descargar petroleo
+525,se debe cargar petroleo
+527,descaraga de pescados
+532,descaraga de pescados
+534,se debe descargar petroleo
+536,descarga de cointainers
+539,descaraga de pescados
+541,descarga de cointainers
+542,descaraga de pescados
+543,descaraga de pescados
+544,descaraga de pescados
+545,descarga de cointainers
+546,se debe descargar petroleo
+549,se debe descargar petroleo
+551,carga de cointainers
+552,carga de cointainers
+553,se debe descargar petroleo
+554,carga de cointainers
+555,descarga de cointainers
+556,se debe descargar petroleo
+557,descarga de cointainers
+558,carga de cointainers
+559,descaraga de pescados
+560,descarga de cointainers
+561,carga de cointainers
+563,descarga de cointainers
+565,se debe cargar petroleo
+566,descarga de cointainers
+571,descarga de cointainers
+572,descaraga de pescados
+573,descarga de cointainers
+575,descarga de cointainers
+576,se debe descargar petroleo
+577,se debe descargar petroleo
+578,se debe cargar petroleo
+581,descaraga de pescados
+582,descarga de cointainers
+583,descarga de cointainers
+585,se debe cargar petroleo
+586,se debe cargar petroleo
+590,descaraga de pescados
+592,descaraga de pescados
+594,descaraga de pescados
+597,descarga de cointainers
+598,descarga de cointainers
+599,descaraga de pescados
+602,carga de cointainers
+603,descaraga de pescados
+605,descaraga de pescados
+608,descarga de cointainers
+609,carga de cointainers
+610,descaraga de pescados
+611,se debe descargar petroleo
+613,carga de cointainers
+615,carga de cointainers
+617,carga de cointainers
+618,se debe descargar petroleo
+621,descaraga de pescados
+622,descaraga de pescados
+623,se debe descargar petroleo
+624,descaraga de pescados
+625,se debe cargar petroleo
+627,se debe descargar petroleo
+628,se debe cargar petroleo
+630,descaraga de pescados
+631,descarga de cointainers
+635,descaraga de pescados
+636,se debe descargar petroleo
+637,descaraga de pescados
+640,descarga de cointainers
+642,descarga de cointainers
+643,descaraga de pescados
+644,descaraga de pescados
+646,se debe cargar petroleo
+650,descarga de cointainers
+657,se debe descargar petroleo
+658,descaraga de pescados
+660,descaraga de pescados
+662,carga de cointainers
+664,descaraga de pescados
+666,descaraga de pescados
+668,carga de cointainers
+669,se debe descargar petroleo
+671,descaraga de pescados
+672,se debe cargar petroleo
+673,se debe descargar petroleo
+675,descaraga de pescados
+676,se debe cargar petroleo
+678,descaraga de pescados
+679,se debe cargar petroleo
+680,descaraga de pescados
+681,descaraga de pescados
+682,se debe descargar petroleo
+684,descarga de cointainers
+685,descaraga de pescados
+686,se debe descargar petroleo
+687,carga de cointainers
+688,se debe descargar petroleo
+689,carga de cointainers
+690,descaraga de pescados
+691,se debe cargar petroleo
+692,descarga de cointainers
+693,se debe descargar petroleo
+694,carga de cointainers
+695,descarga de cointainers
+696,descaraga de pescados
+700,carga de cointainers
+701,se debe cargar petroleo
+702,carga de cointainers
+703,descaraga de pescados
+704,carga de cointainers
+707,descarga de cointainers
+708,se debe descargar petroleo
+710,descaraga de pescados
+711,descarga de cointainers
+712,descaraga de pescados
+713,se debe descargar petroleo
+715,se debe descargar petroleo
+717,descarga de cointainers
+718,se debe cargar petroleo
+719,descarga de cointainers
+721,descaraga de pescados
+722,se debe descargar petroleo
+723,descarga de cointainers
+725,carga de cointainers
+727,descarga de cointainers
+728,descarga de cointainers
+729,se debe descargar petroleo
+731,descaraga de pescados
+732,carga de cointainers
+734,descaraga de pescados
+735,descarga de cointainers
+736,descaraga de pescados
+737,se debe descargar petroleo
+738,descaraga de pescados
+739,carga de cointainers
+741,carga de cointainers
+742,carga de cointainers
+746,descaraga de pescados
+747,se debe descargar petroleo
+748,descarga de cointainers
+752,descarga de cointainers
+753,descaraga de pescados
+755,se debe descargar petroleo
+756,descaraga de pescados
+757,descaraga de pescados
+759,descaraga de pescados
+762,descaraga de pescados
+763,se debe descargar petroleo
+764,descaraga de pescados
+766,carga de cointainers
+768,se debe cargar petroleo
+769,carga de cointainers
+771,descaraga de pescados
+774,descarga de cointainers
+776,descaraga de pescados
+777,carga de cointainers
+778,se debe descargar petroleo
+779,descaraga de pescados
+780,descaraga de pescados
+781,descarga de cointainers
+782,se debe cargar petroleo
+783,carga de cointainers
+784,se debe descargar petroleo
+785,carga de cointainers
+786,descaraga de pescados
+788,descarga de cointainers
+789,carga de cointainers
+790,descaraga de pescados
+792,descaraga de pescados
+793,se debe cargar petroleo
+794,descaraga de pescados
+795,descaraga de pescados
+797,se debe cargar petroleo
+798,descaraga de pescados
+799,descaraga de pescados
+801,descaraga de pescados
+802,se debe descargar petroleo
+803,descaraga de pescados
+805,descaraga de pescados
+808,carga de cointainers
+810,se debe cargar petroleo
+811,carga de cointainers
+813,descaraga de pescados
+814,descaraga de pescados
+815,descaraga de pescados
+816,descaraga de pescados
+817,se debe descargar petroleo
+820,se debe descargar petroleo
+821,se debe cargar petroleo
+822,se debe descargar petroleo
+825,descaraga de pescados
+826,se debe cargar petroleo
+827,descaraga de pescados
+828,descaraga de pescados
+829,descarga de cointainers
+831,se debe descargar petroleo
+834,descaraga de pescados
+835,se debe descargar petroleo
+837,descarga de cointainers
+840,descaraga de pescados
+842,carga de cointainers
+843,descaraga de pescados
+844,se debe cargar petroleo
+846,carga de cointainers
+847,se debe cargar petroleo
+849,descaraga de pescados
+850,descarga de cointainers
+854,se debe cargar petroleo
+855,descaraga de pescados
+856,descaraga de pescados
+857,se debe descargar petroleo
+860,carga de cointainers
+861,descaraga de pescados
+865,descaraga de pescados
+866,se debe descargar petroleo
+867,descaraga de pescados
+868,se debe cargar petroleo
+869,descaraga de pescados
+870,descaraga de pescados
+873,descarga de cointainers
+875,carga de cointainers
+883,descarga de cointainers
+884,se debe cargar petroleo
+885,se debe descargar petroleo
+886,carga de cointainers
+887,descaraga de pescados
+888,se debe descargar petroleo
+891,descarga de cointainers
+892,se debe descargar petroleo
