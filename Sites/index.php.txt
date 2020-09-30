@@ -1,0 +1,23 @@
+<?php include('templates/header.html');   ?>
+
+<body>
+  <h1 align="center">Información Puertos </h1>
+  <p style="text-align:center;">Aquí esta la informacion de puertos e Instalaciones en el país.</p>
+
+  <br>
+
+  <h3 align="center"> ¿Quieres buscar un Puerto?</h3>
+
+  <form align="center" action="consultas/consulta_tipo_nombre.php" method="post">
+    Nombre:
+    <input type="text" name="nombre_pokemon">
+    <br/><br/>
+    <input type="submit" value="Buscar">
+  </form>
+
+  <br>
+  <br>
+  <br>
+  <br>
+</body>
+</html>
