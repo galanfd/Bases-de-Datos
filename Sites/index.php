@@ -16,12 +16,12 @@
       </div>
       <nav>
         <ul>
-          <li><a href="#uno">Consulta 1</a></li>
+          <li><!--a href="#uno">Consulta 1</a></li>
           <li><a href="#dos">Consulta 2</a></li>
           <li><a href="#tres">Consulta 3</a></li>
           <li><a href="#cuatro">Consulta 4</a></li>
           <li><a href="#cinco">Consulta 5</a></li>
-          <li><a href="#seis">Consulta 6</a></li>
+          <li><a href="#seis">Consulta 6</a></li -->
         </ul>
       </nav>
     </header>
