@@ -22,10 +22,59 @@
           <li><a href="#cuatro">Consulta 4</a></li>
           <li><a href="#cinco">Consulta 5</a></li>
           <li><a href="#seis">Consulta 6</a></li -->
+          <li><a href="#register">Registrarte</a></li>
+          <li><a href="#login">Iniciar sesion</a></li>
         </ul>
       </nav>
     </header>
     <div id="main">
+      <article id="register">
+        <h2 class="major">Registrarse</h2>
+        <form action="" method="post">
+        <div class="fields">
+            <div class="field">
+              <label for="nombre_usuario">Nombre Usuario</label>
+              <input type="text" name="nombre_usuario" id="nombre_usuario">
+            </div>
+            <div class="field">
+              <label for="contrasena">Contraseña</label>
+              <input type="text" name="contrasena" id="contrasena">
+            </div>
+            <div class="field">
+              <label for="pasaporte">Numero de pasaporte</label>
+              <input type="text" name="pasaporte" id="pasaporte">
+            </div>
+            <div class="field">
+              <label for="nacionalidad">Nacionalidad</label>
+              <input type="text" name="nacionalidad" id="nacionalidad">
+            </div>
+            <div class="field half">
+              <label for="sexo">Sexo</label>
+              <select name="sexo" id="sexo">
+                <option value="">-</option>
+								<option value="Hombre">Manufacturing</option>
+								<option value="Mujer">Shipping</option>
+              </select>
+            </div>
+            <div class="field half">
+              <label for="edad">Edad</label>
+              <input type="text" name="edad" id="edad">
+            </div>
+          </div>
+          <input type="submit" value="Registrarse">
+        </form>
+      </article>
+
+      <article id="uno">
+        <h2 class="login">Consulta N°1</h2>
+        <p>Mostrar el nombre de todas las navieras presentes en la base de datos.</p>
+        <form action="consultas/consulta_navieras.php" method="post">
+          <input type="submit" value="Consultar">
+        </form>
+      </article>
+
+
+
       <article id="uno">
         <h2 class="major">Consulta N°1</h2>
         <p>Mostrar el nombre de todas las navieras presentes en la base de datos.</p>
