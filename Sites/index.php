@@ -9,9 +9,9 @@
 
       <div class="content">
         <div class="inner">
-          <h1>Entrega 2 - Proyecto Bases de Datos</h1>
-          <h2>Grupo 92</h2>
-          <p>Elija una consulta para continuar<p>
+          <h1>Entrega 3 - Proyecto Bases de Datos</h1>
+          <h2>Grupo 92 y Grupo 59</h2>
+          <p>Elija una opcion para continuar<p>
         </div>
       </div>
       <nav>
@@ -52,8 +52,8 @@
               <label for="sexo">Sexo</label>
               <select name="sexo" id="sexo">
                 <option value="">-</option>
-								<option value="Hombre">Manufacturing</option>
-								<option value="Mujer">Shipping</option>
+								<option value="hombre">Hombre</option>
+								<option value="mujer">Mujer</option>
               </select>
             </div>
             <div class="field half">
@@ -61,15 +61,28 @@
               <input type="text" name="edad" id="edad">
             </div>
           </div>
-          <input type="submit" value="Registrarse">
+          <ul class="actions">
+            <li><input type="submit" value="Aceptar" class="primary"></li>
+          </ul>
         </form>
       </article>
 
-      <article id="uno">
-        <h2 class="login">Consulta N°1</h2>
-        <p>Mostrar el nombre de todas las navieras presentes en la base de datos.</p>
-        <form action="consultas/consulta_navieras.php" method="post">
-          <input type="submit" value="Consultar">
+      <article id="login">
+        <h2 class="major">Iniciar Sesion</h2>
+        <form action="" method="post">
+        <div class="fields">
+            <div class="field">
+              <label for="nombre_usuario">Nombre Usuario</label>
+              <input type="text" name="nombre_usuario" id="nombre_usuario">
+            </div>
+            <div class="field">
+              <label for="contrasena">Contraseña</label>
+              <input type="text" name="contrasena" id="contrasena">
+            </div>
+          </div>
+          <ul class="actions">
+            <li><input type="submit" value="Aceptar" class="primary"></li>
+          </ul>
         </form>
       </article>
 
