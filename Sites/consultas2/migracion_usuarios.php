@@ -33,6 +33,7 @@
     $result_pasaporte -> execute();
     $hay_pasaporte = $result_pasaporte -> fetchAll();
     if (empty($hay_pasaporte)){
+      echo '<p>$max_uid</p>';
       $max_uid++;
       $uid = $max_uid;
       $nombre = $p[1];
