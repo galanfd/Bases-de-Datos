@@ -41,7 +41,7 @@
       $pasaporte = $p[0];
       $nacionalidad = $p[2];
 
-      $query_insertar = "INSERT INTO Usuarios_test VALUES($uid, '$nombre', $edad, '$sexo', '$pasaporte', 'pass1234', true);";
+      $query_insertar = "INSERT INTO Usuarios_test VALUES($uid, '$nombre', $edad, '$sexo', '$pasaporte', '$nacionalidad', 'pass1234', true);";
       $result_insertar = $db_59 -> prepare($query_uid);
       $result_insertar -> execute();
     }
