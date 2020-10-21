@@ -16,7 +16,7 @@ include('../templates/header.html');   ?>
   $dataCollected = $result -> fetchAll(); #Obtiene todos los resultados de la consulta en forma de un arreglo
   if (! empty($dataCollected)){
     $_SESSION["user_id"] = $dataCollected[0][0];
-    echo "<p> Usuario valido: $found_id </p>";
+    echo "<p> Usuario valido</p>";
     echo '
     <form method="post" action="pagina_usuario.php">
     <input type="submit" value="Aceptar">

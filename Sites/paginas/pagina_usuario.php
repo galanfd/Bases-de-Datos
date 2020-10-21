@@ -1,10 +1,11 @@
-<?php include('../templates/header.html');   ?>
+<?php session_start();
+include('../templates/header.html');   ?>
 
 <body>
 
   <?php
   require("../config/conexion.php"); #Llama a conexión, crea el objeto PDO y obtiene la variable $db
-  session_start();
+  
   $uid = $_SESSION["user_id"];
   $query = "SELECT usuarios.nombre, usuarios.edad, usuarios.sexo, usuarios.pasaporte, usuarios.nacionalidad FROM usuarios WHERE usuarios.uid = $uid;";
   $result = $db_59 -> prepare($query);
