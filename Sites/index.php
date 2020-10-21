@@ -69,7 +69,7 @@
 
       <article id="login">
         <h2 class="major">Iniciar Sesion</h2>
-        <form action="" method="post">
+        <form action="paginas/autentificacion" method="post">
         <div class="fields">
             <div class="field">
               <label for="nombre_usuario">Nombre Usuario</label>
