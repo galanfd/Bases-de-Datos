@@ -14,7 +14,7 @@
   $result -> execute();
   $dataCollected = $result -> fetchAll(); #Obtiene todos los resultados de la consulta en forma de un arreglo
   if (empty($dataCollected)){
-    echo "<p> Usuario invalido </p>"
+    echo "<p> Usuario invalido </p>";
   }
   ?>
 
