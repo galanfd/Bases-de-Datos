@@ -16,7 +16,7 @@
   $todo_jefes = $result_jefes -> fetchAll();
 
   # Chequeamos cual es el id actual mas alto
-  $query_uid = "SELECT MAX (uid) FROM Usuarios_test;";
+  $query_uid = "SELECT auxiliar FROM (SELECT MAX (uid) FROM Usuarios_test) AS auxiliar WHERE auxiliar IS NOT NULL;";
   $result_uid = $db_59 -> prepare($query_uid);
   $result_jefes -> execute();
   $array_uid = $result_uid -> fetchAll();
