@@ -13,11 +13,17 @@
   $result = $db_59 -> prepare($query);
   $result -> execute();
   $dataCollected = $result -> fetchAll(); #Obtiene todos los resultados de la consulta en forma de un arreglo
-  if (empty($dataCollected)){
+  if (! empty($dataCollected)){
+    echo "<p> Usuario valido </p>";
+    echo '
+    <form method="post" action="paginas/pagina_usuario.php">
+    <input type="submit" value="Aceptar">
+    </form>
+    ';
+  } else {
     echo "<p> Usuario invalido </p>";
   }
   ?>
-
   <table>
     <tr>
       <th>ID</th>
