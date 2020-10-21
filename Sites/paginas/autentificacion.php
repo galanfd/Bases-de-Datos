@@ -1,4 +1,5 @@
-<?php include('../templates/header.html');   ?>
+<?php session_start();
+include('../templates/header.html');   ?>
 
 <body>
 
@@ -14,7 +15,6 @@
   $result -> execute();
   $dataCollected = $result -> fetchAll(); #Obtiene todos los resultados de la consulta en forma de un arreglo
   if (! empty($dataCollected)){
-    session_start();
     $_SESSION["user_id"] = $dataCollected[0][0];
     echo "<p> Usuario valido: $found_id </p>";
     echo '
