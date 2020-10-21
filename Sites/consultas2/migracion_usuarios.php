@@ -33,7 +33,7 @@
     $result_pasaporte -> execute();
     $hay_pasaporte = $result_pasaporte -> fetchAll();
     if (empty($hay_pasaporte)){
-      echo '<p>$max_uid</p>';
+      echo "<p> $max_uid </p>";
       $max_uid++;
       $uid = $max_uid;
       $nombre = $p[1];
@@ -43,7 +43,7 @@
       $nacionalidad = $p[2];
 
       $query_insertar = "INSERT INTO Usuarios_test VALUES($uid, '$nombre', $edad, '$sexo', '$pasaporte', '$nacionalidad', 'pass1234', true);";
-      $result_insertar = $db_59 -> prepare($query_uid);
+      $result_insertar = $db_59 -> prepare($query_insertar);
       $result_insertar -> execute();
     }
   }
