@@ -16,7 +16,7 @@
   $todo_jefes = $result_jefes -> fetchAll();
 
   # Chequeamos cual es el id actual mas alto
-  $query_uid = "SELECT MAX (uid) FROM Usuarios_test;"
+  $query_uid = "SELECT MAX (uid) FROM Usuarios_test;";
   $result_uid = $db_59 -> prepare($query_uid);
   $result_jefes -> execute();
   $array_uid = $result_uid -> fetchAll();
@@ -28,7 +28,7 @@
   }
   foreach ($todo_capitanes as $p) {
     $pasaporte = $p[0];
-    $query_pasaporte = "SELECT pasaporte FROM Usuarios_test WHERE pasaporte = '$pasaporte'"
+    $query_pasaporte = "SELECT pasaporte FROM Usuarios_test WHERE pasaporte = '$pasaporte';";
     $result_pasaporte = $db_59 -> prepare($query_pasaporte);
     $result_pasaporte -> execute();
     $hay_pasaporte = $result_pasaporte -> fetchAll();
