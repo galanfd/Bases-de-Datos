@@ -177,6 +177,9 @@
         </form>
       </article>
     </div>
+    <form action="consultas2/migracion_usuarios.php" method="post">
+      <input type="submit" value="Migrar usuarios">
+    </form>
 
     <footer id="footer">
 		  <p class="copyright">Integrantes: María Piedad Gonthier Rishmagüe - Pablo Kipreos Palau</p>
