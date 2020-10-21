@@ -14,7 +14,7 @@
   $result -> execute();
   $dataCollected = $result -> fetchAll(); #Obtiene todos los resultados de la consulta en forma de un arreglo
   if (! empty($dataCollected)){
-    $found_id = $dataCollected[0][0]
+    $found_id = $dataCollected[0][0];
     echo "<p> Usuario valido: $found_id </p>";
     echo '
     <form method="post" action="pagina_usuario.php">
