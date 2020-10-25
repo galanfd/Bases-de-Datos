@@ -1,0 +1,59 @@
+CREATE OR REPLACE FUNCTION
+retornar_instalacione_libres(fecha1 timestamp, fecha2 timestamp, seleccion_puerto integer)
+RETURNS TABLE (instalacion varchar(50), fecha date, disponibles integer, porcentaje float) AS $$
+DECLARE
+contador integer := 0
+query1 text;
+query2 text;
+query_instalacion text;
+info1 record;
+info2 record;
+info_instalacion record;
+espacio int;
+porcentaje float;
+id_instal int;
+BEGIN
+    DROP TABLE [IF EXISTS] resultado;
+    CREATE TEMP TABLE resultado(id_instal INT, fecha timestamp, espacio int, disponible float);
+
+    query1 := 'SELECT *  FROM PermisosPedidos, Instalaciones, PuertoInstall, Puertos, Permisos, PermisosCarga/Desc WHERE
+        PermisosPedidos.id_instalacion = Instalaciones.id_instalacion AND Instalaciones.id_instalacion = PuertoInstall.id_instalacion
+        AND PuertoInstall.id_puerto = Puertos.id_puerto AND PermisosPedidos.id_permiso = Permisos.id_permiso
+        AND PermisosCarga/Desc.id_permiso = Permisos.id_permiso AND Puertos.id_puerto = seleccion_puerto';
+
+    query2 := 'SELECT * FROM PermisosPedidos, Instalaciones, PuertoInstall, Puertos, Permisos, PermisosCarga / Desc
+    WHERE PermisosPedidos.id_instalacion = Instalaciones.id_instalacion AND Instalaciones.id_instalacion = PuertoInstall.id_instalacion
+    AND PuertoInstall.id_puerto = Puertos.id_puerto AND PermisosPedidos.id_permiso = Permisos.id_permiso
+    AND PermisosCarga / Desc.id_permiso = Permisos.id_permiso AND Puertos.id_puerto = seleccion_puerto';
+
+    query_instalacion := 'SELECT Instalaciones.id_instalacion, Instalaciones.capacidad FROM Puertos, PuertoInstall, Instalaciones WHERE ' \
+                         'Puertos.id_puerto = PuertoInstall.id_puerto AND PuertoInstall.id_instalacion = Instalacion.id_instalacion' \
+                         'AND Puertos.id_puerto = sleccion_puerto';
+
+    loop
+        for info_instalacion in execute query_instalacion loop
+            id_instal := info_instalacion.Instalaciones.id_instalacion
+            contador := 0
+            for info in execute query1 loop
+                if info.atraque = fecha1 and info.Instalaciones.id_instalacion = id_instal then
+                    contador := contador + 1
+                end if;
+            end loop;
+            for info in execute query2 loop
+                if info.atraque <= fecha1 and info.Instalaciones.id_instalacion = id_instal  and info.salida >fecha1 then
+                    contador := contador + 1
+                end if;
+            end loop;
+            espacio := info_instalacion.capacidad - contador;
+            porcentaje := espacio/info_instalacion.capacidad;
+            INSERT INTO resultado(id_instal, fecha1, espacio, porcentaje);
+        end loop
+        exit when fecha1 = fecha2;
+        fecha1 := fecha1 + 1;
+    end loop
+
+
+RETURN QUERY SELECT * FROM resultado
+RETURN;
+END
+$$ language plpgsql
