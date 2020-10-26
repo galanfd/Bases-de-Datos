@@ -1,6 +1,6 @@
 CREATE OR REPLACE FUNCTION
 retornar_instalacione_libres(fecha1 timestamp, fecha2 timestamp, seleccion_puerto integer)
-RETURNS TABLE (instalacion varchar(50), fecha date, disponibles integer, porcentaje float) AS $$
+RETURNS TABLE (instalacion varchar(50), fecha date, disponibles integer, porcentaje numeric) AS $$
 DECLARE
 contador integer := 0;
 query1 text;
@@ -38,7 +38,8 @@ BEGIN
             end loop;
             espacio := info_instalacion.capacidad_instalacion - contador;
             porcentaje := espacio/info_instalacion.capacidad_instalacion;
-            execute 'Insert into resultados("id_instal", "fecha1", "espacio", "porcentaje")';                   
+            PREPARE insertar (int, timestamp, int, numeric) AS INSERT INTO resultado VALUES($1, $2, $3, $4);
+            execute insertar(id_instal, fecha1, espacio, porcentaje);                   
         end loop;
         if fecha1 = fecha2 then
             exit;
