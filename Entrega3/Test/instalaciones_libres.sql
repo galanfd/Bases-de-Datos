@@ -24,7 +24,7 @@ BEGIN
     
     loop
         for info_instalacion in execute 'SELECT Instalaciones.id_instalacion, Instalaciones.capacidad_instalacion FROM Puertos, Puerto_Instalacion, Instalaciones WHERE Puertos.id_puerto = Puerto_Instalacion.id_puerto AND Puerto_Instalacion.id_instalacion = Instalaciones.id_instalacion AND Puertos.id_puerto = $1' using seleccion_puerto loop
-            id_instal := info_instalacion.Instalaciones.id_instalacion;
+            id_instal := info_instalacion.id_instalacion;
             contador := 0;
             for info1 in execute query1 loop
                 if info1.atraque = fecha1 and info1.Instalaciones.id_instalacion = id_instal then
