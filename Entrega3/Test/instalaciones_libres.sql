@@ -38,7 +38,7 @@ BEGIN
             end loop;
             espacio := info_instalacion.capacidad_instalacion - contador;
             porcentaje := espacio/info_instalacion.capacidad_instalacion;
-            INSERT INTO resultado(id_instal, fecha1, espacio, porcentaje);
+            execute 'INSERT INTO resultado($1, $2, $3, $4)' using id_instal, fecha1, espacio, porcentaje;
         end loop;
         if fecha1 = fecha2 then
             exit;
