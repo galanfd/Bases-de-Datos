@@ -46,7 +46,6 @@ BEGIN
         fecha1 := fecha1 + 1;
     end loop;
 
-
 RETURN QUERY SELECT * FROM resultado
 RETURN;
 END
