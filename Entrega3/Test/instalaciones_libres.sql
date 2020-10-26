@@ -43,7 +43,7 @@ BEGIN
         if fecha1 = fecha2 then
             exit;
         end if;
-        fecha1 := fecha1 + 1;
+        fecha1 := fecha1 + interval '1' day;
     end loop;
 
 RETURN QUERY SELECT * FROM resultado
