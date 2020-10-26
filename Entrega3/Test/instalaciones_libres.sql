@@ -13,7 +13,6 @@ espacio int;
 porcentaje float;
 id_instal int;
 BEGIN
-    PREPARE insertar (int, timestamp, int, real) AS INSERT INTO resultado VALUES($1, $2, $3, $4);
     DROP TABLE resultado;
     CREATE TEMP TABLE resultado(id_instal INT, fecha timestamp, espacio int, disponible real);
 
@@ -39,6 +38,7 @@ BEGIN
             end loop;
             espacio := info_instalacion.capacidad_instalacion - contador;
             porcentaje := espacio/info_instalacion.capacidad_instalacion;
+            PREPARE insertar (int, timestamp, int, real) AS INSERT INTO resultado VALUES($1, $2, $3, $4);
             execute insertar(id_instal, fecha1, espacio, porcentaje);                   
         end loop;
         if fecha1 = fecha2 then
