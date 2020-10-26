@@ -38,7 +38,7 @@ BEGIN
             end loop;
             espacio := info_instalacion.capacidad_instalacion - contador;
             porcentaje := espacio/info_instalacion.capacidad_instalacion;
-            insert into resultado(id_instal, fecha1, espacio, porcentaje);                   
+            execute 'insert into resultado VALUES(id_instal, fecha1, espacio, porcentaje)';                   
         end loop;
         if fecha1 = fecha2 then
             exit;
