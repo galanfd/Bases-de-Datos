@@ -12,8 +12,8 @@ info_instalacion record;
 espacio int;
 porcentaje float;
 id_instal int;
-PREPARE insertar (int, timestamp, int, real) AS INSERT INTO resultado VALUES($1, $2, $3, $4);
 BEGIN
+    PREPARE insertar (int, timestamp, int, real) AS INSERT INTO resultado VALUES($1, $2, $3, $4);
     DROP TABLE resultado;
     CREATE TEMP TABLE resultado(id_instal INT, fecha timestamp, espacio int, disponible real);
 
