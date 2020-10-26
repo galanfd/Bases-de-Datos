@@ -1,6 +1,6 @@
 CREATE OR REPLACE FUNCTION
 retornar_instalacione_libres(fecha1 timestamp, fecha2 timestamp, seleccion_puerto integer)
-RETURNS TABLE (instalacion varchar(50), fecha date, disponibles integer, porcentaje numeric) AS $$
+RETURNS TABLE (instalacion varchar(50), fecha date, disponibles integer, porcentaje real) AS $$
 DECLARE
 contador integer := 0;
 query1 text;
@@ -14,7 +14,7 @@ porcentaje float;
 id_instal int;
 BEGIN
     DROP TABLE resultado;
-    CREATE TEMP TABLE resultado(id_instal INT, fecha timestamp, espacio int, disponible numeric);
+    CREATE TEMP TABLE resultado(id_instal INT, fecha timestamp, espacio int, disponible real);
 
     query1 := 'SELECT *  FROM Permisos_Pedidos, Instalaciones, Puerto_Instalacion, Puertos, Permisos, Permiso_muelle WHERE Permisos_Pedidos.id_instalacion = Instalaciones.id_instalacion AND Instalaciones.id_instalacion = Puerto_Instalacion.id_instalacion AND Puerto_Instalacion.id_puerto = Puertos.id_puerto AND Permisos_Pedidos.id_permiso = Permisos.id_permiso AND Permiso_muelle.id_permiso = Permisos.id_permiso AND Puertos.id_puerto = seleccion_puerto';
 
@@ -38,7 +38,7 @@ BEGIN
             end loop;
             espacio := info_instalacion.capacidad_instalacion - contador;
             porcentaje := espacio/info_instalacion.capacidad_instalacion;
-            PREPARE insertar (int, timestamp, int, numeric) AS INSERT INTO resultado VALUES($1, $2, $3, $4);
+            PREPARE insertar (int, timestamp, int, real) AS INSERT INTO resultado VALUES($1, $2, $3, $4);
             execute insertar(id_instal, fecha1, espacio, porcentaje);                   
         end loop;
         if fecha1 = fecha2 then
