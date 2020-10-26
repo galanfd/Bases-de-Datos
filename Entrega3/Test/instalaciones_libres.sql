@@ -40,7 +40,9 @@ BEGIN
             porcentaje := espacio/info_instalacion.capacidad;
             execute 'INSERT INTO resultado(id_instal, fecha1, espacio, porcentaje)';
         end loop
-        exit when fecha1 = fecha2;
+        if fecha1 = fecha2 then
+            exit;
+        end if;
         fecha1 := fecha1 + 1;
     end loop
 
