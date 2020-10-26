@@ -26,13 +26,13 @@ BEGIN
         for info_instalacion in execute query_instalacion loop
             id_instal := info_instalacion.Instalaciones.id_instalacion;
             contador := 0;
-            for info in execute query1 loop
-                if info.atraque = fecha1 and info.Instalaciones.id_instalacion = id_instal then
+            for info1 in execute query1 loop
+                if info1.atraque = fecha1 and info1.Instalaciones.id_instalacion = id_instal then
                     contador := contador + 1;
                 end if;
             end loop;
-            for info in execute query2 loop
-                if info.atraque <= fecha1 and info.Instalaciones.id_instalacion = id_instal  and info.salida >fecha1 then
+            for info2 in execute query2 loop
+                if info2.atraque <= fecha1 and info2.Instalaciones.id_instalacion = id_instal  and info2.salida >fecha1 then
                     contador := contador + 1;
                 end if;
             end loop;
