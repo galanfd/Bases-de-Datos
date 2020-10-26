@@ -23,7 +23,7 @@ BEGIN
     query_instalacion := 'SELECT Instalaciones.id_instalacion, Instalaciones.capacidad_instalacion FROM Puertos, Puerto_Instalacion, Instalaciones WHERE Puertos.id_puerto = Puerto_Instalacion.id_puerto AND Puerto_Instalacion.id_instalacion = Instalaciones.id_instalacion AND Puertos.id_puerto = seleccion_puerto';
     
     loop
-        for info_instalacion in execute query_instalacion loop
+        for info_instalacion in SELECT Instalaciones.id_instalacion, Instalaciones.capacidad_instalacion FROM Puertos, Puerto_Instalacion, Instalaciones WHERE Puertos.id_puerto = Puerto_Instalacion.id_puerto AND Puerto_Instalacion.id_instalacion = Instalaciones.id_instalacion AND Puertos.id_puerto = seleccion_puerto loop
             id_instal := info_instalacion.Instalaciones.id_instalacion;
             contador := 0;
             for info1 in execute query1 loop
