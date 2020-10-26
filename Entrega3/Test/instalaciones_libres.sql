@@ -2,9 +2,6 @@ CREATE OR REPLACE FUNCTION
 retornar_instalacione_libres(fecha1 timestamp, fecha2 timestamp, seleccion_puerto integer)
 RETURNS TABLE (instalacion varchar(50), fecha date, disponibles integer, porcentaje float) AS $$
 DECLARE
-Var1 rowtype;
-Var2 rowtype;
-Var3 rowtype;
 contador integer := 0;
 query1 text;
 query2 text;
