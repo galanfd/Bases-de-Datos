@@ -3,7 +3,6 @@ retornar_instalacione_libres(fecha1 timestamp, fecha2 timestamp, seleccion_puert
 RETURNS TABLE (instalacion varchar(50), fecha date, disponibles integer, porcentaje float) AS $$
 DECLARE
 contador integer := 0;
-seleccion_puerto integer := seleccion_puerto;
 query1 text;
 query2 text;
 query_instalacion text;
@@ -23,8 +22,19 @@ BEGIN
 
     query_instalacion := 'SELECT Instalaciones.id_instalacion, Instalaciones.capacidad_instalacion FROM Puertos, Puerto_Instalacion, Instalaciones WHERE Puertos.id_puerto = Puerto_Instalacion.id_puerto AND Puerto_Instalacion.id_instalacion = Instalaciones.id_instalacion AND Puertos.id_puerto = seleccion_puerto';
 
+
+
+
+    SELECT *  FROM Permisos_Pedidos, Instalaciones, Puerto_Instalacion, Puertos, Permisos, Permiso_muelle INTO Var1 WHERE Permisos_Pedidos.id_instalacion = Instalaciones.id_instalacion AND Instalaciones.id_instalacion = Puerto_Instalacion.id_instalacion AND Puerto_Instalacion.id_puerto = Puertos.id_puerto AND Permisos_Pedidos.id_permiso = Permisos.id_permiso AND Permiso_muelle.id_permiso = Permisos.id_permiso AND Puertos.id_puerto = seleccion_puerto;
+
+    SELECT * FROM Permisos_Pedidos, Instalaciones, Puerto_Instalacion, Puertos, Permisos, Permiso_muelle INTO Var2 WHERE Permisos_Pedidos.id_instalacion = Instalaciones.id_instalacion AND Instalaciones.id_instalacion = Puerto_Instalacion.id_instalacion AND Puerto_Instalacion.id_puerto = Puertos.id_puerto AND Permisos_Pedidos.id_permiso = Permisos.id_permiso AND Permiso_muelle.id_permiso = Permisos.id_permiso AND Puertos.id_puerto = seleccion_puerto;
+
+    SELECT Instalaciones.id_instalacion, Instalaciones.capacidad_instalacion FROM Puertos, Puerto_Instalacion, Instalaciones INTO Var3 WHERE Puertos.id_puerto = Puerto_Instalacion.id_puerto AND Puerto_Instalacion.id_instalacion = Instalaciones.id_instalacion AND Puertos.id_puerto = seleccion_puerto;
+    
+    
+    
     loop
-        for info_instalacion in execute query_instalacion loop
+        for info_instalacion in execute Var3 loop
             id_instal := info_instalacion.Instalaciones.id_instalacion;
             contador := 0;
             for info1 in execute query1 loop
