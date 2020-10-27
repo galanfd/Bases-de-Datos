@@ -18,6 +18,8 @@ entra varchar;
 porcentaje float;
 espacio int;
 id_instal int;
+date_entrada timestamp;
+date_salida timestamp;
 BEGIN
     DROP TABLE espacio_barco;
     DROP TABLE espacio;
@@ -45,38 +47,40 @@ BEGIN
     end if;
 
     if tipo = 'astillero' then
-	loop
-	    for info_instalacion in execute 'SELECT Instalaciones.id_instalacion, Instalaciones.capacidad_instalacion FROM Puertos, Puerto_Instalacion, Instalaciones WHERE Puertos.id_puerto = Puerto_Instalacion.id_puerto AND Puerto_Instalacion.id_instalacion = Instalaciones.id_instalacion AND Instalaciones.tipo_instalacion = $1 AND Puertos.id_puerto = $2' using tipo, seleccion_puerto loop
-                id_instal := info_instalacion.id_instalacion;
-	        contador := 0;
+	for info_instalacion in execute 'SELECT Instalaciones.id_instalacion, Instalaciones.capacidad_instalacion FROM Puertos, Puerto_Instalacion, Instalaciones WHERE Puertos.id_puerto = Puerto_Instalacion.id_puerto AND Puerto_Instalacion.id_instalacion = Instalaciones.id_instalacion AND Instalaciones.tipo_instalacion = $1 AND Puertos.id_puerto = $2' using tipo, seleccion_puerto loop
+            id_instal := info_instalacion.id_instalacion;
+	    contador := 0;
+	    loop
 	        for info2 in execute 'SELECT * FROM Permisos_Pedidos, Instalaciones, Puerto_Instalacion, Puertos, Permisos, Permiso_astillero WHERE Permisos_Pedidos.id_instalacion = Instalaciones.id_instalacion AND Instalaciones.id_instalacion = Puerto_Instalacion.id_instalacion AND Puerto_Instalacion.id_puerto = Puertos.id_puerto AND Permisos_Pedidos.id_permiso = Permisos.id_permiso AND Permiso_astillero.id_permiso = Permisos.id_permiso AND Puertos.id_puerto = $1' using seleccion_puerto loop
-                if info2.fecha_atraque <= fecha1 and info2.id_instalacion = id_instal  and info2.fecha_salida >fecha1 then
-                    contador := contador + 1;
+                    if info2.fecha_atraque <= fecha1 and info2.id_instalacion = id_instal  and info2.fecha_salida > fecha1 then
+                        contador := contador + 1;
+                    end if;
+                end loop;	
+	        espacio := info_instalacion.capacidad_instalacion - contador;
+	        if espacio > 0 then
+	            estado := 'True';
+	        end if;
+	        if espacio = 0 then
+	            estado := 'False';
+	        end if;
+	        insert into espacio VALUES(id_instal, fecha1, estado);
+                if fecha1 >= fecha2 then
+                    exit;
                 end if;
-            end loop;	
-	    espacio := info_instalacion.capacidad_instalacion - contador;
-	    if espacio > 0 then
-	        estado := 'True';
-	    end if;
-	    if espacio = 0 then
-		estado := 'False';
-	    end if;
-	    insert into espacio VALUES(id_instal, fecha1, estado);
-            end loop;
-            if fecha1 = fecha2 then
-                exit;
-            end if;
-            fecha1 := fecha1 + interval '1' day;
+                fecha1 := fecha1 + interval '1' day;
+    	    end loop;
+            entra := 'True';
+	    date_entrada := fecha1;
+	    date_salida := fecha2;
+            for instal in execute 'SELECT * FROM espacio' loop
+	        if instal.tiene_capacidad = 'False' then
+	            entra := 'False';
+	            date_entrada := NULL;
+		    date_salida := NULL;
+	        end if;
+	    end loop;
+	    insert into espacio_barco VALUES(id_instal, entra, date_entrada);
         end loop;
-	entra := 'True';
-	date := instal.fecha;
-	for instal in execute 'SELECT * FROM espacio' loop
-	    if instal.tiene_capacidad = 'False' then
-		entra := 'False';
-		date := NULL;
-	    end if;
-	end loop;
-	insert into espacio_barco VALUES(id_instal, entra, date);
     end if;
 
 RETURN QUERY SELECT * FROM espacio_barco
