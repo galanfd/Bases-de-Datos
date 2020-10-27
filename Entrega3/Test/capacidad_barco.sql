@@ -47,7 +47,7 @@ BEGIN
 	    insert into espacio_barco VALUES(id_instal, estado, fecha1);
 	end loop;
 	id := CAST(execute 'SELECT MAX(Permisos.id_permiso) FROM Permisos' AS int) + 1
-        for instal in execute 'SELECT * FROM espacio_barco) loop
+        for instal in execute 'SELECT * FROM espacio_barco' loop
             if instal.tiene_capacidad = 'True' then 
 	        instal_entrada := instal.id_instal;
 	    end if;
@@ -96,7 +96,7 @@ BEGIN
 	    insert into espacio_barco VALUES(id_instal, entra, date_entrada);
         end loop;
 	id := CAST(execute 'SELECT MAX(Permisos.id_permiso) FROM Permisos' AS int) + 1
-        for instal in execute 'SELECT * FROM espacio_barco) loop
+        for instal in execute 'SELECT * FROM espacio_barco' loop
             if instal.tiene_capacidad = 'True' then 
 	        instal_entrada := instal.id_instal;
 	    end if;
