@@ -13,8 +13,8 @@ espacio int;
 porcentaje float;
 id_instal int;
 BEGIN
-    DROP TABLE resultado;
-    CREATE TABLE resultado(id_instal INT, fecha timestamp, espacio int, disponible float);
+    DROP TABLE libres;
+    CREATE TABLE libres(id_instal INT, fecha timestamp, espacio int, disponible float);
 
     query1 := 'SELECT *  FROM Permisos_Pedidos, Instalaciones, Puerto_Instalacion, Puertos, Permisos, Permiso_muelle WHERE Permisos_Pedidos.id_instalacion = Instalaciones.id_instalacion AND Instalaciones.id_instalacion = Puerto_Instalacion.id_instalacion AND Puerto_Instalacion.id_puerto = Puertos.id_puerto AND Permisos_Pedidos.id_permiso = Permisos.id_permiso AND Permiso_muelle.id_permiso = Permisos.id_permiso AND Puertos.id_puerto = seleccion_puerto';
 
@@ -39,7 +39,7 @@ BEGIN
             espacio := info_instalacion.capacidad_instalacion - contador;
             porcentaje := CAST(espacio AS FLOAT)/CAST(info_instalacion.capacidad_instalacion AS FLOAT);
             if espacio != 0 then
-                insert into resultado VALUES(id_instal, fecha1, espacio, porcentaje); 
+                insert into libres VALUES(id_instal, fecha1, espacio, porcentaje); 
             end if;
         end loop;
         if fecha1 = fecha2 then
@@ -48,7 +48,7 @@ BEGIN
         fecha1 := fecha1 + interval '1' day;
     end loop;
 
-RETURN QUERY SELECT * FROM resultado
+RETURN QUERY SELECT * FROM libres
 RETURN;
 END
 $$ language plpgsql
