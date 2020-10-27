@@ -14,6 +14,7 @@ estado varchar;
 tiene_espacio varchar;
 entra int;
 porcentaje float;
+espacio int;
 id_instal int;
 BEGIN
     DROP TABLE espacio_barco;
