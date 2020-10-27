@@ -27,7 +27,7 @@ BEGIN
             id_instal := info_instalacion.id_instalacion;
             contador := 0;
             for info1 in execute 'SELECT *  FROM Permisos_Pedidos, Instalaciones, Puerto_Instalacion, Puertos, Permisos, Permiso_muelle WHERE Permisos_Pedidos.id_instalacion = Instalaciones.id_instalacion AND Instalaciones.id_instalacion = Puerto_Instalacion.id_instalacion AND Puerto_Instalacion.id_puerto = Puertos.id_puerto AND Permisos_Pedidos.id_permiso = Permisos.id_permiso AND Permiso_muelle.id_permiso = Permisos.id_permiso AND Puertos.id_puerto = $1' using seleccion_puerto loop
-                if info1.fecha_atraque = fecha1 and info1.id_instalacion = id_instal then
+                if date_part('day', info1.fecha_atraque) = date_part('day', fecha1) and date_part('month', info1.fecha_atraque) = date_part('month', fecha1) and date_part('year', info1.fecha_atraque) = date_part('year', fecha1) and info1.id_instalacion = id_instal then
                     contador := contador + 1;
                 end if;
             end loop;
