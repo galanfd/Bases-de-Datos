@@ -21,6 +21,7 @@ id_instal int;
 date_entrada timestamp;
 date_salida timestamp;
 fecha_entrada timestamp := fecha1;
+id int;
 BEGIN
     DROP TABLE espacio_barco;
     CREATE TABLE espacio_barco(id_instal INT, tiene_capacidad varchar, posible_fecha_entrada timestamp);
@@ -84,6 +85,10 @@ BEGIN
 	    insert into espacio_barco VALUES(id_instal, entra, date_entrada);
         end loop;
     end if;
+    
+    
+    id := CAST(SELECT MAX(Permisos.id_permiso) FROM Permisos AS int) + 1
+    
 
 RETURN QUERY SELECT * FROM espacio_barco
 RETURN;
