@@ -20,10 +20,9 @@ espacio int;
 id_instal int;
 date_entrada timestamp;
 date_salida timestamp;
+fecha_entrada timestamp := fecha1;
 BEGIN
     DROP TABLE espacio_barco;
-    DROP TABLE espacio;
-    CREATE TABLE espacio(id_instal INT, fecha timestamp, tiene_capacidad varchar);
     CREATE TABLE espacio_barco(id_instal INT, tiene_capacidad varchar, posible_fecha_entrada timestamp);
     
     if tipo = 'muelle' then
@@ -50,6 +49,9 @@ BEGIN
 	for info_instalacion in execute 'SELECT Instalaciones.id_instalacion, Instalaciones.capacidad_instalacion FROM Puertos, Puerto_Instalacion, Instalaciones WHERE Puertos.id_puerto = Puerto_Instalacion.id_puerto AND Puerto_Instalacion.id_instalacion = Instalaciones.id_instalacion AND Instalaciones.tipo_instalacion = $1 AND Puertos.id_puerto = $2' using tipo, seleccion_puerto loop
             id_instal := info_instalacion.id_instalacion;
 	    contador := 0;
+	    DROP TABLE espacio;
+            CREATE TABLE espacio(id_instal INT, fecha timestamp, tiene_capacidad varchar);
+	    fecha1 := fecha_entrada;
 	    loop
 	        for info2 in execute 'SELECT * FROM Permisos_Pedidos, Instalaciones, Puerto_Instalacion, Puertos, Permisos, Permiso_astillero WHERE Permisos_Pedidos.id_instalacion = Instalaciones.id_instalacion AND Instalaciones.id_instalacion = Puerto_Instalacion.id_instalacion AND Puerto_Instalacion.id_puerto = Puertos.id_puerto AND Permisos_Pedidos.id_permiso = Permisos.id_permiso AND Permiso_astillero.id_permiso = Permisos.id_permiso AND Puertos.id_puerto = $1' using seleccion_puerto loop
                     if info2.fecha_atraque <= fecha1 and info2.id_instalacion = id_instal  and info2.fecha_salida > fecha1 then
