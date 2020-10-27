@@ -38,7 +38,9 @@ BEGIN
             end loop;
             espacio := info_instalacion.capacidad_instalacion - contador;
             porcentaje := CAST(espacio AS FLOAT)/CAST(info_instalacion.capacidad_instalacion AS FLOAT);
-            insert into resultado VALUES(id_instal, fecha1, espacio, porcentaje);                   
+            if espacio != 0 then
+                insert into resultado VALUES(id_instal, fecha1, espacio, porcentaje); 
+            end if;
         end loop;
         if fecha1 = fecha2 then
             exit;
