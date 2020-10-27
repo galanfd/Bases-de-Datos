@@ -21,7 +21,7 @@ id_instal int;
 BEGIN
     DROP TABLE espacio_barco;
     DROP TABLE espacio;
-    CREATE TEMP TABLE espacio(id_instal INT, fecha timestamp, tiene_capacidad varchar);
+    CREATE TABLE espacio(id_instal INT, fecha timestamp, tiene_capacidad varchar);
     CREATE TABLE espacio_barco(id_instal INT, tiene_capacidad varchar, posible_fecha_entrada timestamp);
     
     if tipo = 'muelle' then
