@@ -58,7 +58,7 @@ BEGIN
 		tiene_espacio := 'True';
 	    end if;
         end loop;
-	if tiene_espacio := 'True' then
+	if tiene_espacio = 'True' then
             insert into permisos_pedidos VALUES(id, instal_entrada, patente);
             insert into permisos VALUES(id, fecha_entrada);
             insert into permiso_muelle VALUES(id, descripcion);
