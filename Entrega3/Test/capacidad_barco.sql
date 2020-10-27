@@ -1,6 +1,6 @@
 CREATE OR REPLACE FUNCTION
 espacio_para_barco(tipo varchar, fecha1 timestamp, fecha2 timestamp, patente varchar, seleccion_puerto integer)
-RETURNS TABLE (instalacion INT, tiene_capacidad? varchar) AS $$
+RETURNS TABLE (instalacion INT, tiene_capacidad varchar) AS $$
 DECLARE
 contador integer := 0;
 query1 text;
@@ -18,7 +18,7 @@ id_instal int;
 BEGIN
     DROP TABLE espacio_barco;
     CREATE TEMP TABLE espacio(id_instal INT, fecha timestamp, tiene_capacidad? varchar);
-    CREATE TABLE espacio_barco(id_instal INT, tiene_capacidad? varchar);
+    CREATE TABLE espacio_barco(id_instal INT, tiene_capacidad varchar);
 
     query1 := 'SELECT * FROM Permisos_Pedidos, Instalaciones, Puerto_Instalacion, Puertos, Permisos, Permiso_muelle WHERE Permisos_Pedidos.id_instalacion = Instalaciones.id_instalacion AND Instalaciones.id_instalacion = Puerto_Instalacion.id_instalacion AND Puerto_Instalacion.id_puerto = Puertos.id_puerto AND Permisos_Pedidos.id_permiso = Permisos.id_permiso AND Permiso_muelle.id_permiso = Permisos.id_permiso AND Puertos.id_puerto = seleccion_puerto';
 
@@ -54,7 +54,7 @@ BEGIN
         end loop;
 	entra := 'True'
 	for instal in execute 'SELECT * FROM espacio' loop
-	    if instal.tiene_capacidad? = 'False' then
+	    if instal.tiene_capacidad = 'False' then
 		entra := 'False'
 	end loop;
 	insert into espacio_barco VALUES(id_instal, entra);
@@ -86,7 +86,7 @@ BEGIN
         end loop;
 	entra := 'True'
 	for instal in execute 'SELECT * FROM espacio' loop
-	    if instal.tiene_capacidad? = 'False' then
+	    if instal.tiene_capacidad = 'False' then
 		entra := 'False'
 	end loop;
 	insert into espacio_barco VALUES(id_instal, entra);
