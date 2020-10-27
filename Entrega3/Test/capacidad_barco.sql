@@ -10,6 +10,7 @@ query_instalacion_astillero text;
 info1 record;
 info2 record;
 instal record;
+row record;
 date timestamp;
 info_instalacion record;
 estado varchar;
@@ -47,7 +48,8 @@ BEGIN
 	    end if;
 	    insert into espacio_barco VALUES(id_instal, estado, fecha1);
 	end loop;
-	id := CAST(execute 'SELECT MAX(Permisos.id_permiso) FROM Permisos' AS int) + 1;
+	row := execute 'SELECT MAX(Permisos.id_permiso) FROM Permisos'
+	id := CAST(row.max AS int) + 1;
         for nuevo in execute 'SELECT * FROM espacio_barco' loop
             if nuevo.tiene_capacidad = 'True' then 
 	        instal_entrada := nuevo.id_instal;
@@ -96,7 +98,8 @@ BEGIN
 	    end loop;
 	    insert into espacio_barco VALUES(id_instal, entra, date_entrada);
         end loop;
-	id := CAST(execute 'SELECT MAX(Permisos.id_permiso) FROM Permisos' AS int) + 1;
+	row := execute 'SELECT MAX(Permisos.id_permiso) FROM Permisos'
+	id := CAST(row.max AS int) + 1;
         for nuevo in execute 'SELECT * FROM espacio_barco' loop
             if nuevo.tiene_capacidad = 'True' then 
 	        instal_entrada := nuevo.id_instal;
