@@ -48,7 +48,7 @@ BEGIN
             fecha1 := fecha1 + interval '1' day;
         end loop;
 	entra := 'False';
-	date := NULL
+	date := NULL;
 	for instal in execute 'SELECT * FROM espacio' loop
 	    if instal.tiene_capacidad = 'True' then
 		entra := 'True';
@@ -83,7 +83,7 @@ BEGIN
             fecha1 := fecha1 + interval '1' day;
         end loop;
 	entra := 'False';
-	date := NULL
+	date := NULL;
 	for instal in execute 'SELECT * FROM espacio' loop
 	    if instal.tiene_capacidad = 'True' then
 		entra := 'True';
