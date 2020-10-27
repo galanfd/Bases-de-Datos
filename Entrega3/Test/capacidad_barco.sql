@@ -87,7 +87,8 @@ BEGIN
     end if;
     
     
-    id := CAST(SELECT MAX(Permisos.id_permiso) FROM Permisos AS int) + 1
+    id := CAST(execute 'SELECT MAX(Permisos.id_permiso) FROM Permisos' AS int) + 1
+    raise notice '$1' using id
     
 
 RETURN QUERY SELECT * FROM espacio_barco
