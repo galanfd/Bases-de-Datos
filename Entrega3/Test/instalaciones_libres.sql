@@ -42,7 +42,7 @@ BEGIN
                 insert into retorno VALUES(id_instal, fecha1, espacio, porcentaje); 
             end if;
         end loop;
-        if fecha1 = fecha2 then
+        if fecha1 >= fecha2 then
             exit;
         end if;
         fecha1 := fecha1 + interval '1' day;
