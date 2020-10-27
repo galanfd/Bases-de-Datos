@@ -61,7 +61,7 @@ BEGIN
 
     if tipo = 'astillero' then
 	loop
-	    for info_instalacion in execute 'SELECT Instalaciones.id_instalacion, Instalaciones.capacidad_instalacion FROM Puertos, Puerto_Instalacion, Instalaciones WHERE Puertos.id_puerto = Puerto_Instalacion.id_puerto AND Puerto_Instalacion.id_instalacion = Instalaciones.id_instalacion AND Instalaciones.tipo_instalacion = astillero AND Puertos.id_puerto = $1' using seleccion_puerto loop
+	    for info_instalacion in execute 'SELECT Instalaciones.id_instalacion, Instalaciones.capacidad_instalacion FROM Puertos, Puerto_Instalacion, Instalaciones WHERE Puertos.id_puerto = Puerto_Instalacion.id_puerto AND Puerto_Instalacion.id_instalacion = Instalaciones.id_instalacion AND Instalaciones.tipo_instalacion = $1 AND Puertos.id_puerto = $2' using tipo, seleccion_puerto loop
                 id_instal := info_instalacion.id_instalacion;
 	        contador := 0;
 	        for info2 in execute 'SELECT * FROM Permisos_Pedidos, Instalaciones, Puerto_Instalacion, Puertos, Permisos, Permiso_astillero WHERE Permisos_Pedidos.id_instalacion = Instalaciones.id_instalacion AND Instalaciones.id_instalacion = Puerto_Instalacion.id_instalacion AND Puerto_Instalacion.id_puerto = Puertos.id_puerto AND Permisos_Pedidos.id_permiso = Permisos.id_permiso AND Permiso_astillero.id_permiso = Permisos.id_permiso AND Puertos.id_puerto = $1' using seleccion_puerto loop
