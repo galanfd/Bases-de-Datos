@@ -33,15 +33,15 @@ BEGIN
                     contador := contador + 1;
                 end if;
 	    end loop;	
-	espacio := info_instalacion.capacidad_instalacion - contador;
-	if espacio > 0 then
-	    estado := 'True';
-	end if;
-	if espacio = 0 then
-	    estado := 'False';
-	end if;
+	    espacio := info_instalacion.capacidad_instalacion - contador;
+	    if espacio > 0 then
+	        estado := 'True';
+	    end if;
+	    if espacio = 0 then
+	        estado := 'False';
+	    end if;
+	    insert into espacio_barco VALUES(id_instal, estado, fecha1);
 	end loop;
-	insert into espacio_barco VALUES(id_instal, estado, fecha1);
     end if;
 
     if tipo = 'astillero' then
