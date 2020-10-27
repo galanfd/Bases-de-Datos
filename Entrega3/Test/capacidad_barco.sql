@@ -40,6 +40,7 @@ BEGIN
 	if espacio = 0 then
 	    estado := 'False';
 	end if;
+	end loop;
 	insert into espacio_barco VALUES(id_instal, fecha1, estado);
     end if;
 
