@@ -1,6 +1,6 @@
 CREATE OR REPLACE FUNCTION
 espacio_para_barco(tipo varchar, fecha1 timestamp, fecha2 timestamp, patente varchar, seleccion_puerto integer)
-RETURNS TABLE (instalacion INT, tiene_capacidad varchar) AS $$
+RETURNS TABLE (instalacion INT, tiene_capacidad varchar, fecha_ejemplo timestamp) AS $$
 DECLARE
 contador integer := 0;
 query1 text;
