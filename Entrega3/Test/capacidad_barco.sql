@@ -33,10 +33,10 @@ BEGIN
 		end loop;	
 	    espacio := info_instalacion.capacidad_instalacion - contador;
 	    if espacio > 0 then
-	        estado := 'True'
+	        estado := 'True';
 	    end if;
 	    if espacio = 0 then
-		estado := 'False'
+		estado := 'False';
 	    end if;
 	    insert into espacio VALUES(id_instal, fecha1, estado);
             end loop;
@@ -45,10 +45,10 @@ BEGIN
             end if;
             fecha1 := fecha1 + interval '1' day;
         end loop;
-	entra := 'True'
+	entra := 'True';
 	for instal in execute 'SELECT * FROM espacio' loop
 	    if instal.tiene_capacidad = 'False' then
-		entra := 'False'
+		entra := 'False';
 	end loop;
 	insert into espacio_barco VALUES(id_instal, entra);
     end if;
@@ -65,10 +65,10 @@ BEGIN
             end loop;	
 	    espacio := info_instalacion.capacidad_instalacion - contador;
 	    if espacio > 0 then
-	        estado := 'True'
+	        estado := 'True';
 	    end if;
 	    if espacio = 0 then
-		estado := 'False'
+		estado := 'False';
 	    end if;
 	    insert into espacio VALUES(id_instal, fecha1, estado);
             end loop;
@@ -77,10 +77,10 @@ BEGIN
             end if;
             fecha1 := fecha1 + interval '1' day;
         end loop;
-	entra := 'True'
+	entra := 'True';
 	for instal in execute 'SELECT * FROM espacio' loop
 	    if instal.tiene_capacidad = 'False' then
-		entra := 'False'
+		entra := 'False';
 	end loop;
 	insert into espacio_barco VALUES(id_instal, entra);
     end if;
