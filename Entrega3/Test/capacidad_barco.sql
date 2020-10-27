@@ -84,11 +84,11 @@ BEGIN
             fecha1 := fecha1 + interval '1' day;
         end loop;
 	entra := 'True';
-	date := NULL;
+	date := instal.fecha;
 	for instal in execute 'SELECT * FROM espacio' loop
 	    if instal.tiene_capacidad = 'False' then
 		entra := 'False';
-		date := instal.fecha;
+		date := NULL;
 	    end if;
 	end loop;
 	insert into espacio_barco VALUES(id_instal, entra, date);
