@@ -26,7 +26,6 @@ id int;
 instal_entrada int;
 descripcion varchar := 'Carga / Descarga';
 nuevo record;
-tiene_espacio varchar;
 BEGIN
     DROP TABLE espacio_barco;
     CREATE TABLE espacio_barco(id_instal INT, tiene_capacidad varchar, posible_fecha_entrada timestamp);
