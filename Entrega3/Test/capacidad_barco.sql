@@ -22,6 +22,8 @@ date_entrada timestamp;
 date_salida timestamp;
 fecha_entrada timestamp := fecha1;
 id int;
+instal_entrada int;
+descripcion varchar := 'Carga / Descarga';
 BEGIN
     DROP TABLE espacio_barco;
     CREATE TABLE espacio_barco(id_instal INT, tiene_capacidad varchar, posible_fecha_entrada timestamp);
@@ -44,6 +46,15 @@ BEGIN
 	    end if;
 	    insert into espacio_barco VALUES(id_instal, estado, fecha1);
 	end loop;
+	id := CAST(execute 'SELECT MAX(Permisos.id_permiso) FROM Permisos' AS int) + 1
+        for instal in execute 'SELECT * FROM espacio_barco) loop
+            if instal.tiene_capacidad = 'True' then 
+	        instal_entrada := instal.id_instal;
+	    end if;
+        end loop;
+        insert into permisos_pedidos VALUES(id, instal_entrada, patente);
+        insert into permisos VALUES(id, fecha_entrada);
+        insert into permiso_muelle VALUES(id, descripcion);
     end if;
 
     if tipo = 'astillero' then
@@ -84,11 +95,19 @@ BEGIN
 	    end loop;
 	    insert into espacio_barco VALUES(id_instal, entra, date_entrada);
         end loop;
+	id := CAST(execute 'SELECT MAX(Permisos.id_permiso) FROM Permisos' AS int) + 1
+        for instal in execute 'SELECT * FROM espacio_barco) loop
+            if instal.tiene_capacidad = 'True' then 
+	        instal_entrada := instal.id_instal;
+	    end if;
+        end loop;
+        insert into permisos_pedidos VALUES(id, instal_entrada, patente);
+        insert into permisos VALUES(id, fecha_entrada);
+        insert into permiso_astillero VALUES(id, fecha2);
     end if;
     
     
-    id := CAST(execute 'SELECT MAX(Permisos.id_permiso) FROM Permisos' AS int) + 1
-    raise notice '$1' using id;
+    
     
 
 RETURN QUERY SELECT * FROM espacio_barco
