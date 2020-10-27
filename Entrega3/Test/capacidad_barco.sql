@@ -26,6 +26,7 @@ id int;
 instal_entrada int;
 descripcion varchar := 'Carga / Descarga';
 nuevo record;
+tiene_espacio varchar;
 BEGIN
     DROP TABLE espacio_barco;
     CREATE TABLE espacio_barco(id_instal INT, tiene_capacidad varchar, posible_fecha_entrada timestamp);
@@ -51,14 +52,18 @@ BEGIN
 	for row in execute 'SELECT MAX(Permisos.id_permiso) FROM Permisos' loop
 	    id := CAST(row.max AS int) + 1;
 	end loop;
+	tiene_espacio := 'False';
         for nuevo in execute 'SELECT * FROM espacio_barco' loop
             if nuevo.tiene_capacidad = 'True' then 
 	        instal_entrada := nuevo.id_instal;
+		tiene_espacio := 'True';
 	    end if;
         end loop;
-        insert into permisos_pedidos VALUES(id, instal_entrada, patente);
-        insert into permisos VALUES(id, fecha_entrada);
-        insert into permiso_muelle VALUES(id, descripcion);
+	if tiene_espacio := 'True' then
+            insert into permisos_pedidos VALUES(id, instal_entrada, patente);
+            insert into permisos VALUES(id, fecha_entrada);
+            insert into permiso_muelle VALUES(id, descripcion);
+	end if;
     end if;
 
     if tipo = 'astillero' then
@@ -102,14 +107,18 @@ BEGIN
 	for row in execute 'SELECT MAX(Permisos.id_permiso) FROM Permisos' loop
 	    id := CAST(row.max AS int) + 1;
 	end loop;
+	tiene_espacio := 'False';
         for nuevo in execute 'SELECT * FROM espacio_barco' loop
             if nuevo.tiene_capacidad = 'True' then 
 	        instal_entrada := nuevo.id_instal;
+		tiene_espacio := 'True';
 	    end if;
         end loop;
-        insert into permisos_pedidos VALUES(id, instal_entrada, patente);
-        insert into permisos VALUES(id, fecha_entrada);
-        insert into permiso_astillero VALUES(id, fecha2);
+	if tiene_espacio = 'True' then
+            insert into permisos_pedidos VALUES(id, instal_entrada, patente);
+            insert into permisos VALUES(id, fecha_entrada);
+            insert into permiso_astillero VALUES(id, fecha2);
+	end if;
     end if;
     
     
