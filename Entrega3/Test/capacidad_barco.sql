@@ -9,6 +9,7 @@ query_instalacion_muelle text;
 query_instalacion_astillero text;
 info1 record;
 info2 record;
+instal record;
 info_instalacion record;
 estado varchar;
 tiene_espacio varchar;
