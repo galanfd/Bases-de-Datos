@@ -10,17 +10,18 @@ query_instalacion_astillero text;
 info1 record;
 info2 record;
 instal record;
+date timestamp;
 info_instalacion record;
 estado varchar;
 tiene_espacio varchar;
-entra int;
+entra varchar;
 porcentaje float;
 espacio int;
 id_instal int;
 BEGIN
     DROP TABLE espacio_barco;
     CREATE TEMP TABLE espacio(id_instal INT, fecha timestamp, tiene_capacidad varchar);
-    CREATE TABLE espacio_barco(id_instal INT, tiene_capacidad varchar);
+    CREATE TABLE espacio_barco(id_instal INT, tiene_capacidad varchar, fecha_ejemplo timestamp);
     
     if tipo = 'muelle' then
 	loop
@@ -46,13 +47,15 @@ BEGIN
             end if;
             fecha1 := fecha1 + interval '1' day;
         end loop;
-	entra := 'True';
+	entra := 'False';
+	date := NULL
 	for instal in execute 'SELECT * FROM espacio' loop
-	    if instal.tiene_capacidad = 'False' then
-		entra := 'False';
+	    if instal.tiene_capacidad = 'True' then
+		entra := 'True';
+		date := instal.fecha;
 	    end if;
 	end loop;
-	insert into espacio_barco VALUES(id_instal, entra);
+	insert into espacio_barco VALUES(id_instal, entra, date);
     end if;
 
     if tipo = 'astillero' then
@@ -79,13 +82,15 @@ BEGIN
             end if;
             fecha1 := fecha1 + interval '1' day;
         end loop;
-	entra := 'True';
+	entra := 'False';
+	date := NULL
 	for instal in execute 'SELECT * FROM espacio' loop
-	    if instal.tiene_capacidad = 'False' then
-		entra := 'False';
+	    if instal.tiene_capacidad = 'True' then
+		entra := 'True';
+		date := instal.fecha;
 	    end if;
 	end loop;
-	insert into espacio_barco VALUES(id_instal, entra);
+	insert into espacio_barco VALUES(id_instal, entra, date);
     end if;
 
 RETURN QUERY SELECT * FROM espacio_barco
