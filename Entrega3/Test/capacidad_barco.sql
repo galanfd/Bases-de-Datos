@@ -41,7 +41,7 @@ BEGIN
 	    estado := 'False';
 	end if;
 	end loop;
-	insert into espacio_barco VALUES(id_instal, fecha1, estado);
+	insert into espacio_barco VALUES(id_instal, estado, fecha1);
     end if;
 
     if tipo = 'astillero' then
