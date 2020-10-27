@@ -50,6 +50,7 @@ BEGIN
 	for instal in execute 'SELECT * FROM espacio' loop
 	    if instal.tiene_capacidad = 'False' then
 		entra := 'False';
+	    end if;
 	end loop;
 	insert into espacio_barco VALUES(id_instal, entra);
     end if;
@@ -82,6 +83,7 @@ BEGIN
 	for instal in execute 'SELECT * FROM espacio' loop
 	    if instal.tiene_capacidad = 'False' then
 		entra := 'False';
+	    end if;
 	end loop;
 	insert into espacio_barco VALUES(id_instal, entra);
     end if;
