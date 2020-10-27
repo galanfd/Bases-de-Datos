@@ -1,6 +1,6 @@
 CREATE OR REPLACE FUNCTION
 espacio_para_barco(tipo varchar, fecha1 timestamp, fecha2 timestamp, patente varchar, seleccion_puerto integer)
-RETURNS TABLE (instalacion INT, tiene_capacidad varchar, fecha_ejemplo timestamp) AS $$
+RETURNS TABLE (instalacion INT, tiene_capacidad varchar, posible_fecha_entrada timestamp) AS $$
 DECLARE
 contador integer := 0;
 query1 text;
@@ -21,7 +21,7 @@ id_instal int;
 BEGIN
     DROP TABLE espacio_barco;
     CREATE TEMP TABLE espacio(id_instal INT, fecha timestamp, tiene_capacidad varchar);
-    CREATE TABLE espacio_barco(id_instal INT, tiene_capacidad varchar, fecha_ejemplo timestamp);
+    CREATE TABLE espacio_barco(id_instal INT, tiene_capacidad varchar, posible_fecha_entrada timestamp);
     
     if tipo = 'muelle' then
 	loop
