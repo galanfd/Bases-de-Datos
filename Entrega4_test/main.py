@@ -86,9 +86,19 @@ def new_message():
 
 # Rutas DELETE
 # /messages/:id - Con un id de mensaje, lo elimina de la base de datos
-@app.route("/messages", methods=['DELETE'])
-def delete_user():
-    pass
+@app.route("/messages/:id", methods=['GET', 'DELETE'])
+def delete_message():
+    '''
+    Elimina el mensaje de id entregada
+    '''
+    id = request.args.get('mid', None)
+    if id == None:
+        res = '204: No Content'
+        return json.jsonify(res)
+    else:
+        mid = int(id)
+        mensajes.remove({"mid": mid})
+        return json.jsonify({"Mensaje eliminado": True})
 
 if __name__ == '__main__':
     app.run(debug=True)
