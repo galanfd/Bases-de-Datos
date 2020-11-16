@@ -35,9 +35,11 @@ def home():
 # /messages/:id1 & id2 - Todos los mensajes intercambiados entre los dos id de usuario
 @app.route("/messages")
 def get_messages():
-    id_1 = int(request.args.get('id1', None))
-    id_2 = int(request.args.get('id2', None))
+    id_1 = request.args.get('id1', None)
+    id_2 = request.args.get('id2', None)
     if id_1 and id_2:
+        id_1 = int(id_1)
+        id_2 = int(id_2)
         mensajes_1 = list(mensajes.find({"sender": id_1}, {"_id": 0}))
         mensajes_2 = list(mensajes.find({"sender": id_2}, {"_id": 0}))
         matches = []
