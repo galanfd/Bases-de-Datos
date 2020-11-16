@@ -89,16 +89,24 @@ def new_message():
 @app.route("/messages/:id", methods=['GET', 'DELETE'])
 def delete_message():
     '''
-    Elimina el mensaje de id entregada
+    Elimina el usuario de id entregada
     '''
     id = request.args.get('mid', None)
+
     if id == None:
-        res = '204: No Content'
+        res = '204: No Content  -  Debe ingresar un id'
         return json.jsonify(res)
     else:
-        mid = int(id)
-        mensajes.remove({"mid": mid})
-        return json.jsonify({"Mensaje eliminado": True})
+        try:
+            mid = int(id)
+        except:
+            return json.jsonify('Formato de id ingresado no es valido')
+        message = list(mensajes.find({"mid": mid}, {"_id": 0}))
+        if message == []:
+            return json.jsonify('Mensaje con id asociado no existente')
+        else:
+            mensajes.remove({"mid": mid})
+            return json.jsonify({"Mensaje eliminado": True})
 
 if __name__ == '__main__':
     app.run(debug=True)
