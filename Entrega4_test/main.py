@@ -82,7 +82,28 @@ def get_user(uid):
 # Input: JSON CON atributos de nuevo mensaje, como body del request.
 @app.route("/messages", methods=['POST'])
 def new_message():
-    pass
+    data = {key: request.json[key] for key in MSG_KEYS[1:]}
+
+    msg = isinstance(data["message"], str)
+    send = isinstance(data["sender"], int)
+    rec = isinstance(data["receptant"], int)
+    lati = isinstance(data["lat"], float)
+    l = isinstance(data["long"], float)
+    d = isinstance(data["date"], str)
+
+    if msg and send and rec and lati and l and d:
+        posible_id = 1
+        while True:
+            message = list(mensajes.find({"mid": posible_id}, {"_id": 0}))
+            if message == []:  # cuando buscamos un mensaje con un id no existente, el mensaje es vacio
+                break
+                    # encontramos el id mas chico que no tiene mensaje
+            posible_id += 1
+        data["mid"] = posible_id
+        result = mensajes.insert_one(data)
+        return json.jsonify("exito")
+    else:
+        return json.jsonify("Mensaje con parametros no validos")
 
 # Rutas DELETE
 # /messages/:id - Con un id de mensaje, lo elimina de la base de datos
