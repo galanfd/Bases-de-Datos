@@ -219,11 +219,33 @@ def text_search():
         'valid': True,
         'content': {}
     }
-    # Igual que en el metodo POST, verificamos que haya un json y que tenga todas las llaves.
+    # Tenemos que verificar que parametros estan
     try:
+        # Si el diccionario no existe o esta vacio, devolvemos todos los mensajes
         if not request.json:
-            raise TypeError
-        info = {key: request.json[key] for key in TEXT_KEYS}
+            final = list(mensajes.find({}, {"_id": 0}))
+            response['content']['mongo_response'] = final
+            return json.jsonify(response)
+
+        # Creamos el diccionario con las palabras
+        # NOTA: esta parte es un poco redundante, originalmente consideramos que tenian que estar
+        # todas las llaves y listas para el request. Para no rehacer too, en el caso de que no este
+        # alguna key, se agrega con una lista vacia.
+        info = {}
+        for key in TEXT_KEYS:
+            # Si la llave no esta en el request, se agrega una lista vacia
+            if key not in request.json.keys():
+                # Si la llave es el userid, no lo agregamos
+                if key == "userId":
+                    continue
+                info[key] = []
+            else:
+                info[key] = request.json[key]
+
+        # Desde aqui hacemos la validacion que originalmente revisaba que todas los valores fueran
+        # una llave valida con una lista valida, que aun sirve para validar los valores que envian
+        # (si envian algo, sean listas con strings y no otra cosa)
+
         # Esta vez solo puede haber texto, asique levantamos excepcion si alguno no es string
         for data_key, data_value in info.items():
             # Si es que la llave es userId, vemos si el valor es un int
@@ -238,23 +260,35 @@ def text_search():
             for word in data_value:
                 if type(word) is not str:
                     raise TypeError
-    except KeyError as error:
-        response['valid'] = False
-        response['content']['message'] = \
-            f'Error en la validacion de parametros: el parametro {error} no esta presente'
     except TypeError:
         response['valid'] = False
         response['content']['message'] = \
             f'Error en la validacion de parametros: no se recibio datos en el formato correcto'
-    # Se revisa si el usuario existe
-    user = info['userId']
-    user_check = list(usuarios.find({"uid": user}, {"_id": 0}))
-    if not user_check:
-        response['valid'] = False
-        response['content']['message'] = 'El usuario solicitado no existe'
+
+    # Para no hacer dos casos separados si se busca el userid o no, la consulta se va a asegurar que
+    # el sender este en una lista con el userId. Si es que no hay id dado, entonces sera todos
+    # los uid.
+
+    # Si hay usuario, se revisa si el usuario existe y se hace la lista
+    if 'userId' in info.keys():
+        user = info['userId']
+        user_check = list(usuarios.find({"uid": user}, {"_id": 0}))
+        # Si es vacio, el usuario no existe
+        if not user_check:
+            response['valid'] = False
+            response['content']['message'] = 'El usuario solicitado no existe'
+        # Si no, tenemos que hacer la lista
+        else:
+            user = [user]
+    # Si no se da un userId, entonces la lista son todos los ids
+    else:
+        user = mensajes.distinct("sender")
+
     # Vemos si ocurrio algun error, si no, estamos listos para la busqueda
     if not response['valid']:
         return json.jsonify(response)
+
+    # Iniciamos la busqueda creando el query
     query = ""
     for palabra in info['desired']:
         if not palabra:
@@ -274,7 +308,9 @@ def text_search():
             query += "\\" + "\"" + palabra + "\"" + "\\ "
         # Vemos si hay un query, si no, se maneja como un query vacio normal
         if query:
-            results = list(mensajes.find({"$text": {"$search": query}, "sender": user}, {"_id": 0}))
+            results = list(mensajes.find(
+                {"$text": {"$search": query}, "sender": {"$in": user}}, {"_id": 0})
+            )
             # Extraemos los ids de todos los mensajes con las palabras prohibidas
             forb_msg = []
             for result in results:
@@ -283,7 +319,7 @@ def text_search():
             final = list(mensajes.find(
                 {
                     "$and": [
-                        {"sender": user},
+                        {"sender": {"$in": user}},
                         {"mid": {"$nin": forb_msg}}
                     ]
                 }, {"_id": 0}
@@ -297,9 +333,11 @@ def text_search():
                 continue
             query += f"-{palabra} "
     if query:
-        final = list(mensajes.find({"$text": {"$search": query}, "sender": user}, {"_id": 0}))
+        final = list(mensajes.find(
+            {"$text": {"$search": query}, "sender": {"$in": user}}, {"_id": 0})
+        )
     else:
-        final = list(mensajes.find({"sender": user}, {"_id": 0}))
+        final = list(mensajes.find({"sender": {"$in": user}}, {"_id": 0}))
     response['content']['mongo_response'] = final
     return json.jsonify(response)
 
