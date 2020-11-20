@@ -160,6 +160,10 @@ def new_message():
         response['valid'] = False
         response['content']['message'] = \
             f'Error en la validacion de parametros: no se recibio datos en el formato correcto'
+    except Exception:
+        response['valid'] = False
+        response['content']['message'] = \
+            f'Error en la validacion de parametros: no hay body en el request'
     else:
         # Por ultimo, chequeamos que esten todos los tipos y si no, lo convertimos
         type_list = [str, int, int, float, float, str]
@@ -219,6 +223,12 @@ def text_search():
         'valid': True,
         'content': {}
     }
+    # Tratamos el caso de que no se envie nada, que lanza un error con request.json
+    if not request.get_data():
+        final = list(mensajes.find({}, {"_id": 0}))
+        response['content']['mongo_response'] = final
+        return json.jsonify(response)
+
     # Tenemos que verificar que parametros estan
     try:
         # Si el diccionario no existe o esta vacio, devolvemos todos los mensajes
