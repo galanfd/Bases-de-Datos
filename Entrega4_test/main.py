@@ -21,44 +21,38 @@ db = client["grupo59"]
 usuarios = db.usuarios
 mensajes = db.mensajes
 
-#Iniciamos la aplicación de flask
+# Iniciamos la aplicación de flask
 app = Flask(__name__)
-
 
 
 @app.route("/")
 def home():
-    '''
+    """
     Página de inicio
-    '''
+    """
     return "<h1>Home</h1>"
+
 
 # Rutas GET
 # /messages - Todos los atributos de todos los mensajes en la base de datos
 # /messages/:id1 & id2 - Todos los mensajes intercambiados entre los dos id de usuario
 @app.route("/messages")
 def get_messages():
+    response = {
+        'valid': True,
+        'content': {}
+    }
     id_1 = request.args.get('id1', None)
     id_2 = request.args.get('id2', None)
 
     if id_1 and id_2:
-        id_1 = int(id_1)
-        id_2 = int(id_2)
-        mensajes_1 = list(mensajes.find({"sender": id_1}, {"_id": 0}))
-        mensajes_2 = list(mensajes.find({"sender": id_2}, {"_id": 0}))
-        matches = []
-        for mensaje in mensajes_1:
-            if mensaje["receptant"] == id_2:
-                matches.append(mensaje)
-        for mensaje in mensajes_2:
-            if mensaje["receptant"] == id_1:
-                matches.append(mensaje)
-        return json.jsonify(matches)
+        response = conversation_request(id_1, id_2)
+        return json.jsonify(response)
 
-    messages = list(mensajes.find({}, {"_id": 0}))
-    return json.jsonify(messages)
+    response['content']['mongo_response'] = list(mensajes.find({}, {"_id": 0}))
+    return json.jsonify(response)
 
-"""
+
 def conversation_request(id_1, id_2):
     id_1 = int(id_1)
     id_2 = int(id_2)
@@ -66,9 +60,35 @@ def conversation_request(id_1, id_2):
         'valid': True,
         'content': {}
     }
-    mensajes_1 = list(mensajes.find({"sender": id_1}, {"_id": 0}))
-    mensajes_2 = list(mensajes.find({"sender": id_2}, {"_id": 0}))
-"""
+    user_1 = list(usuarios.find({"uid": id_1}, {"_id": 0}))
+    user_2 = list(usuarios.find({"uid": id_2}, {"_id": 0}))
+
+    if not (user_1 and user_2):
+        response['valid'] = False
+        response['content']['message'] = 'Alguno de los usuarios solicitados no existe'
+    else:
+        messages = mensajes.find(
+            {
+                "$or": [
+                    {
+                        "$and": [
+                            {"sender": id_1},
+                            {"receptant": id_2}
+                        ]
+                    },
+                    {
+                        "$and": [
+                            {"sender": id_2},
+                            {"receptant": id_1}
+                        ]
+                    }
+                ]
+            },
+            {"_id": 0}
+        )
+        response['content']['mongo_response'] = list(messages)
+    return response
+
 
 @app.route("/messages/<int:mid>")
 def get_message(mid):
@@ -88,8 +108,12 @@ def get_message(mid):
 
 @app.route("/users")
 def get_users():
-    users = list(usuarios.find({}, {"_id": 0}))
-    return json.jsonify(users)
+    response = {
+        'valid': True,
+        'content': {}
+    }
+    response['content']['mongo_response'] = list(usuarios.find({}, {"_id": 0}))
+    return json.jsonify(response)
 
 
 @app.route("/users/<int:uid>")
