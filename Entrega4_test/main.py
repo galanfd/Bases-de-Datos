@@ -214,7 +214,41 @@ def delete_message(mid):
 # Text search
 @app.route("/text-search")
 def text_search():
-    info = {key: request.json[key] for key in TEXT_KEYS}
+    info = None
+    response = {
+        'valid': True,
+        'content': {}
+    }
+    # Igual que en el metodo POST, verificamos que haya un json y que tenga todas las llaves.
+    try:
+        if not request.json:
+            raise TypeError
+        info = {key: request.json[key] for key in TEXT_KEYS}
+        # Esta vez solo puede haber texto, asique levantamos excepcion si alguno no es string
+        for data_key, data_value in info.items():
+            # Si es que la llave es userId, vemos si el valor es un int
+            if data_key == "userId":
+                if type(data_value) is not int:
+                    raise TypeError
+                continue
+            # Si no es userId, el valor tiene que ser una lista
+            if type(data_value) is not list:
+                raise TypeError
+            # Cada valor de la lista tiene que ser un string
+            for word in data_value:
+                if type(word) is not str:
+                    raise TypeError
+    except KeyError as error:
+        response['valid'] = False
+        response['content']['message'] = \
+            f'Error en la validacion de parametros: el parametro {error} no esta presente'
+    except TypeError:
+        response['valid'] = False
+        response['content']['message'] = \
+            f'Error en la validacion de parametros: no se recibio datos en el formato correcto'
+    if not response['valid']:
+        return json.jsonify(response)
+
     user = int(info['userId'])
     query = ""
     for palabra in info['desired']:
