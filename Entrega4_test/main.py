@@ -10,6 +10,7 @@ client = MongoClient(URL)
 
 USER_KEYS = ['uid', 'name', 'age', 'description']
 MSG_KEYS = ['mid', 'message', 'sender', 'receptant', 'lat', 'long', 'date']
+TEXT_KEYS = ['desired', 'required', 'forbidden', 'userId']
 # Usuarios: uid, name, age, description
 # Mensaje: mid, message, sender, receptant, lat, long, date
 
@@ -126,6 +127,31 @@ def delete_message(mid):
         else:
             mensajes.remove({"mid": mid})
             return json.jsonify({"Mensaje eliminado": True})
+
+# Text search
+@app.route("/text-search")
+def text_search():
+    info = {key: request.json[key] for key in TEXT_KEYS}
+    user = int(info['userId'])
+    query = ""
+    for palabra in info['desired']:
+        if not palabra:
+            continue
+        query += palabra + " "
+    for palabra in info['required']:
+        if not palabra:
+            continue
+        query += "\\" + "\"" + palabra + "\"" + "\\ "
+    for palabra in info['forbidden']:
+        if not palabra:
+            continue
+        query += f"-{palabra} "
+    if query:
+        final = list(mensajes.find({"$text": {"$search": query}, "sender": user}, {"_id": 0}))
+        return json.jsonify(final)
+    else:
+        final = list(mensajes.find({"sender": user}, {"_id": 0}))
+        return json.jsonify(final)
 
 if __name__ == '__main__':
     app.run(debug=True)
