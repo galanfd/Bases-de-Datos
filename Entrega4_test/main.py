@@ -134,15 +134,26 @@ def get_user(uid):
     return json.jsonify(response)
 
 
-# Text search
-
 # Rutas POST
 # /messages - Inserta un nuevo mensaje a partir de un JSON. Solo lo inserta si los parametros son
 # validos. Se añade con un id numerico unico
 # Input: JSON CON atributos de nuevo mensaje, como body del request.
 @app.route("/messages", methods=['POST'])
 def new_message():
-    data = {key: request.json[key] for key in MSG_KEYS[1:]}
+    response = {
+        'valid': True,
+        'content': {}
+    }
+    try:
+        data = {key: request.json[key] for key in MSG_KEYS[1:]}
+    except KeyError as error:
+        response['valid'] = False
+        response['content']['message'] = \
+            f'Error en la validacion de parametros: el parametro {error} no esta presente'
+        return response
+
+
+
 
     msg = isinstance(data["message"], str)
     send = isinstance(data["sender"], int)
@@ -212,6 +223,7 @@ def text_search():
     else:
         final = list(mensajes.find({"sender": user}, {"_id": 0}))
         return json.jsonify(final)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
