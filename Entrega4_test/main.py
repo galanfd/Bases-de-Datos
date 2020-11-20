@@ -24,6 +24,8 @@ mensajes = db.mensajes
 #Iniciamos la aplicación de flask
 app = Flask(__name__)
 
+
+
 @app.route("/")
 def home():
     '''
@@ -38,6 +40,7 @@ def home():
 def get_messages():
     id_1 = request.args.get('id1', None)
     id_2 = request.args.get('id2', None)
+
     if id_1 and id_2:
         id_1 = int(id_1)
         id_2 = int(id_2)
@@ -51,27 +54,59 @@ def get_messages():
             if mensaje["receptant"] == id_1:
                 matches.append(mensaje)
         return json.jsonify(matches)
+
     messages = list(mensajes.find({}, {"_id": 0}))
     return json.jsonify(messages)
 
+"""
+def conversation_request(id_1, id_2):
+    id_1 = int(id_1)
+    id_2 = int(id_2)
+    response = {
+        'valid': True,
+        'content': {}
+    }
+    mensajes_1 = list(mensajes.find({"sender": id_1}, {"_id": 0}))
+    mensajes_2 = list(mensajes.find({"sender": id_2}, {"_id": 0}))
+"""
+
 @app.route("/messages/<int:mid>")
 def get_message(mid):
+    response = {
+        'valid': True,
+        'content': {}
+    }
+    mid = int(mid)
     message = list(mensajes.find({"mid": mid}, {"_id": 0}))
-    return json.jsonify(message)
+    if not message:
+        response['valid'] = False
+        response['content']['message'] = 'El mensaje solicitado no existe'
+    else:
+        response['content']['mongo_response'] = message
+    return json.jsonify(response)
+
 
 @app.route("/users")
 def get_users():
     users = list(usuarios.find({}, {"_id": 0}))
     return json.jsonify(users)
 
+
 @app.route("/users/<int:uid>")
 def get_user(uid):
-    user = list(usuarios.find({"uid": uid}, {"_id": 0}))
-    messages = list(mensajes.find({"sender": uid}, {"_id": 0}))
+    uid = int(uid)
     response = {
-        "user": user,
-        "messages": messages
+        'valid': True,
+        'content': {}
     }
+    user = list(usuarios.find({"uid": uid}, {"_id": 0}))
+    if not user:
+        response['valid'] = False
+        response['content']['message'] = 'El usuario solicitado no existe'
+    else:
+        messages = list(mensajes.find({"sender": uid}, {"_id": 0}))
+        response['content']['mongo_user'] = user
+        response['content']['mongo_messages'] = messages
     return json.jsonify(response)
 
 
@@ -127,6 +162,7 @@ def delete_message(mid):
         else:
             mensajes.remove({"mid": mid})
             return json.jsonify({"Mensaje eliminado": True})
+
 
 # Text search
 @app.route("/text-search")
