@@ -145,12 +145,18 @@ def new_message():
         'content': {}
     }
     try:
+        if not request.json:
+            raise TypeError
         data = {key: request.json[key] for key in MSG_KEYS[1:]}
     except KeyError as error:
         response['valid'] = False
         response['content']['message'] = \
             f'Error en la validacion de parametros: el parametro {error} no esta presente'
-        return response
+    except TypeError:
+        response['valid'] = False
+        response['content']['message'] = \
+            f'Error en la validacion de parametros: no se recibio datos en el formato correcto'
+    return response
 
 
 
