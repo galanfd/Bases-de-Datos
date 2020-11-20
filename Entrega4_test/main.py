@@ -246,10 +246,15 @@ def text_search():
         response['valid'] = False
         response['content']['message'] = \
             f'Error en la validacion de parametros: no se recibio datos en el formato correcto'
+    # Se revisa si el usuario existe
+    user = info['userId']
+    user_check = list(usuarios.find({"uid": user}, {"_id": 0}))
+    if not user_check:
+        response['valid'] = False
+        response['content']['message'] = 'El usuario solicitado no existe'
+    # Vemos si ocurrio algun error, si no, estamos listos para la busqueda
     if not response['valid']:
         return json.jsonify(response)
-
-    user = int(info['userId'])
     query = ""
     for palabra in info['desired']:
         if not palabra:
@@ -259,16 +264,44 @@ def text_search():
         if not palabra:
             continue
         query += "\\" + "\"" + palabra + "\"" + "\\ "
-    for palabra in info['forbidden']:
-        if not palabra:
-            continue
-        query += f"-{palabra} "
+
+    # Si hasta ahora no hay query, entonces solo tendremos forbidden
+    if not query:
+        # Tomamos las palabras prohibidas y las volvemos un required
+        for palabra in info['forbidden']:
+            if not palabra:
+                continue
+            query += "\\" + "\"" + palabra + "\"" + "\\ "
+        # Vemos si hay un query, si no, se maneja como un query vacio normal
+        if query:
+            results = list(mensajes.find({"$text": {"$search": query}, "sender": user}, {"_id": 0}))
+            # Extraemos los ids de todos los mensajes con las palabras prohibidas
+            forb_msg = []
+            for result in results:
+                forb_msg.append(result['mid'])
+            # Tomamos todos los mensajes que su mid no este en la lista
+            final = list(mensajes.find(
+                {
+                    "$and": [
+                        {"sender": user},
+                        {"mid": {"$nin": forb_msg}}
+                    ]
+                }, {"_id": 0}
+            ))
+            response['content']['mongo_response'] = final
+            return json.jsonify(response)
+    else:
+        # En este caso, hay palabras required y/o desired
+        for palabra in info['forbidden']:
+            if not palabra:
+                continue
+            query += f"-{palabra} "
     if query:
         final = list(mensajes.find({"$text": {"$search": query}, "sender": user}, {"_id": 0}))
-        return json.jsonify(final)
     else:
         final = list(mensajes.find({"sender": user}, {"_id": 0}))
-        return json.jsonify(final)
+    response['content']['mongo_response'] = final
+    return json.jsonify(response)
 
 
 if __name__ == '__main__':
