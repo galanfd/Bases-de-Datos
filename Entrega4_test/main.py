@@ -140,47 +140,53 @@ def get_user(uid):
 # Input: JSON CON atributos de nuevo mensaje, como body del request.
 @app.route("/messages", methods=['POST'])
 def new_message():
+    data = None
     response = {
         'valid': True,
         'content': {}
     }
+    # Intentamos obtener todos los parametros del mensaje
     try:
         if not request.json:
             raise TypeError
         data = {key: request.json[key] for key in MSG_KEYS[1:]}
+    # Si se levanta un KeyError, entonces falta algun parametro del mensaje
     except KeyError as error:
         response['valid'] = False
         response['content']['message'] = \
             f'Error en la validacion de parametros: el parametro {error} no esta presente'
+    # Si se levanta un TypeError, entonces el json del request es None
     except TypeError:
         response['valid'] = False
         response['content']['message'] = \
             f'Error en la validacion de parametros: no se recibio datos en el formato correcto'
-    return response
+    else:
+        # Por ultimo, chequeamos que esten todos los tipos y si no, lo convertimos
+        type_list = [str, int, int, float, float, str]
+        for data_value, data_type, data_key in zip(data.values(), type_list, data.keys()):
+            # Vemos si el tipo es el indicado
+            if type(data_value) is not data_type:
+                # Si es que no es el tipo indicado, intentamos convertirlo
+                try:
+                    data[data_key] = data_type(data_value)
+                # Si hay excepcion, el valor no es convertible
+                except ValueError:
+                    response['valid'] = False
+                    response['content']['message'] = 'Error en el tipo de parametros'
+                    break
 
-
-
-
-    msg = isinstance(data["message"], str)
-    send = isinstance(data["sender"], int)
-    rec = isinstance(data["receptant"], int)
-    lati = isinstance(data["lat"], float)
-    l = isinstance(data["long"], float)
-    d = isinstance(data["date"], str)
-
-    if msg and send and rec and lati and l and d:
+    if response['valid']:
         posible_id = 1
         while True:
             message = list(mensajes.find({"mid": posible_id}, {"_id": 0}))
-            if message == []:  # cuando buscamos un mensaje con un id no existente, el mensaje es vacio
+            # Si el mensaje con el id no existe, entonces el id no esta utilizado
+            if not message:
                 break
-                    # encontramos el id mas chico que no tiene mensaje
             posible_id += 1
         data["mid"] = posible_id
-        result = mensajes.insert_one(data)
-        return json.jsonify("exito")
-    else:
-        return json.jsonify("Mensaje con parametros no validos")
+        mensajes.insert_one(data)
+        response['content']['message'] = f'Mensaje insertado con id {posible_id}'
+    return json.jsonify(response)
 
 
 # Rutas DELETE
