@@ -165,27 +165,27 @@ def new_message():
     else:
         return json.jsonify("Mensaje con parametros no validos")
 
+
 # Rutas DELETE
 # /messages/:id - Con un id de mensaje, lo elimina de la base de datos
 @app.route("/messages/<int:mid>", methods=['DELETE'])
 def delete_message(mid):
-    '''
+    """
     Elimina el usuario de id entregada
-    '''
-    if mid == None:
-        res = 'Error 204: No Content  -  Debe ingresar un id'
-        return json.jsonify(res)
+    """
+    mid = int(mid)
+    response = {
+        'valid': True,
+        'content': {}
+    }
+    message = list(mensajes.find({"mid": mid}, {"_id": 0}))
+    if not message:
+        response['valid'] = False
+        response['content']['message'] = 'El mensaje solicitado no existe'
     else:
-        try:
-            mid = int(mid)
-        except:
-            return json.jsonify('Formato de id ingresado no es valido')
-        message = list(mensajes.find({"mid": mid}, {"_id": 0}))
-        if message == []:
-            return json.jsonify('Mensaje con id asociado no existente')
-        else:
-            mensajes.remove({"mid": mid})
-            return json.jsonify({"Mensaje eliminado": True})
+        mensajes.remove({"mid": mid})
+        response['content']['message'] = 'Eliminacion existosa'
+    return json.jsonify(response)
 
 
 # Text search
