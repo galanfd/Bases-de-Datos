@@ -1,6 +1,7 @@
 from flask import Flask, json, request
 from pymongo import MongoClient
 
+
 USER = "grupo59"
 PASS = "grupo59"
 DATABASE = "grupo59"
@@ -138,6 +139,8 @@ def get_user(uid):
 # /messages - Inserta un nuevo mensaje a partir de un JSON. Solo lo inserta si los parametros son
 # validos. Se añade con un id numerico unico
 # Input: JSON CON atributos de nuevo mensaje, como body del request.
+
+
 @app.route("/messages", methods=['POST'])
 def new_message():
     data = None
@@ -178,8 +181,12 @@ def new_message():
                     response['valid'] = False
                     response['content']['message'] = 'Error en el tipo de parametros'
                     break
+    try:
+        date_check = date_check(data["date"])
+    except Exception:
+        pass
 
-    if response['valid']:
+    if response['valid'] and date_check:
         posible_id = 1
         while True:
             message = list(mensajes.find({"mid": posible_id}, {"_id": 0}))
@@ -351,6 +358,13 @@ def text_search():
     response['content']['mongo_response'] = final
     return json.jsonify(response)
 
+
+def date_check(date):
+    year, month, day = date.split("-")
+    if len(year)==4 and year.isnumeric() and month.isnumeric() and day.isnumeric() and int(month) <= 12 and int(month) >= 0 and int(day) >= 1 and int(day) <= 31:
+        return True
+    else:
+        return False
 
 if __name__ == '__main__':
     app.run(debug=True)
