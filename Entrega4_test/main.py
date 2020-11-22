@@ -189,12 +189,7 @@ def new_message():
                     response['valid'] = False
                     response['content']['message'] = 'Error en el tipo de parametros'
                     break
-    try:
-        check = date_check(data["date"])
-    except Exception:
-        pass
-
-    if response['valid'] and check:
+    if response['valid']:
         posible_id = 1
         while True:
             message = list(mensajes.find({"mid": posible_id}, {"_id": 0}))
@@ -210,7 +205,7 @@ def new_message():
 
 # Rutas DELETE
 # /messages/:id - Con un id de mensaje, lo elimina de la base de datos
-@app.route("/messages/<int:mid>", methods=['DELETE'])
+@app.route("/message/<int:mid>", methods=['DELETE'])
 def delete_message(mid):
     """
     Elimina el usuario de id entregada
@@ -323,14 +318,13 @@ def text_search():
         if not palabra:
             continue
         query += "\\" + "\"" + palabra + "\"" + "\\ "
-
     # Si hasta ahora no hay query, entonces solo tendremos forbidden
     if not query:
         # Tomamos las palabras prohibidas y las volvemos un required
         for palabra in info['forbidden']:
             if not palabra:
                 continue
-            query += "\\" + "\"" + palabra + "\"" + "\\ "
+            query += palabra + " "
         # Vemos si hay un query, si no, se maneja como un query vacio normal
         if query:
             results = list(mensajes.find(
