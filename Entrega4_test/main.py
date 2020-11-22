@@ -141,6 +141,14 @@ def get_user(uid):
 # Input: JSON CON atributos de nuevo mensaje, como body del request.
 
 
+def date_check(date):
+    year, month, day = date.split("-")
+    if len(year)==4 and year.isnumeric() and month.isnumeric() and day.isnumeric() and int(month) <= 12 and int(month) >= 0 and int(day) >= 1 and int(day) <= 31:
+        return True
+    else:
+        return False
+
+
 @app.route("/messages", methods=['POST'])
 def new_message():
     data = None
@@ -182,11 +190,11 @@ def new_message():
                     response['content']['message'] = 'Error en el tipo de parametros'
                     break
     try:
-        date_check = date_check(data["date"])
+        check = date_check(data["date"])
     except Exception:
         pass
 
-    if response['valid'] and date_check:
+    if response['valid'] and check:
         posible_id = 1
         while True:
             message = list(mensajes.find({"mid": posible_id}, {"_id": 0}))
@@ -359,12 +367,6 @@ def text_search():
     return json.jsonify(response)
 
 
-def date_check(date):
-    year, month, day = date.split("-")
-    if len(year)==4 and year.isnumeric() and month.isnumeric() and day.isnumeric() and int(month) <= 12 and int(month) >= 0 and int(day) >= 1 and int(day) <= 31:
-        return True
-    else:
-        return False
 
 if __name__ == '__main__':
     app.run(debug=True)
