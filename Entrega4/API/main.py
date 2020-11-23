@@ -55,12 +55,18 @@ def get_messages():
 
 
 def conversation_request(id_1, id_2):
-    id_1 = int(id_1)
-    id_2 = int(id_2)
     response = {
         'valid': True,
         'content': {}
     }
+
+    try:
+        id_1 = int(id_1)
+        id_2 = int(id_2)
+    except ValueError:
+        response['valid'] = False
+        response['content']['message'] = 'Los parametros de id son invalidos'
+        return response
     user_1 = list(usuarios.find({"uid": id_1}, {"_id": 0}))
     user_2 = list(usuarios.find({"uid": id_2}, {"_id": 0}))
 
